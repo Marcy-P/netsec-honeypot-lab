@@ -4,5 +4,57 @@ services:
     build:
       context: .
       dockerfile: images/cowrie/Dockerfile
+    container_name: cowrie
+    hostname: cowrie
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    cap_add:
+      - ALL
+    ports: 
+      - "2222:2222"
+      - "2223:2223"
+    mac_address: 02:42:c0:a8:00:0a
+    networks:
+      network:
+        ipv4_address: 192.168.0.10
+
+  attacker:
+    build: 
+      context: .
+      dockerfile: images/attacker/Dockerfile
+    container_name: attacker
+    hostname: attacker
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    cap_add:
+      - ALL
+    mac_address: 02:42:c0:a8:00:14
+    networks:
+      network:
+        ipv4_address: 192.168.0.20
+
+  test:
+    build: 
+      context: .
+      dockerfile: images/attacker/Dockerfile
+    container_name: test
+    hostname: test
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    cap_add:
+      - ALL
+    mac_address: 02:42:c0:a8:00:15
+    networks:
+      network:
+        ipv4_address: 192.168.0.30
+
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"
+    driver_opts:
+      com.docker.network.bridge.name: netsec_lab_if
 
 

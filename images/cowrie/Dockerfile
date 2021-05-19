@@ -2,8 +2,7 @@
 # `builder` contains all necessary code to build
 # `runtime` is stripped down.
 
-ARG ARCH=
-FROM ${ARCH}debian:buster-slim as builder
+FROM debian:buster-slim as builder
 LABEL maintainer="Michel Oosterhof <michel@oosterhof.net>"
 
 WORKDIR /
@@ -55,7 +54,7 @@ RUN git clone --separate-git-dir=/tmp/cowrie.git https://github.com/cowrie/cowri
       pip install --no-cache-dir --upgrade -r ${COWRIE_HOME}/cowrie-git/requirements.txt && \
       pip install --no-cache-dir --upgrade -r ${COWRIE_HOME}/cowrie-git/requirements-output.txt
 
-FROM ${ARCH}debian:buster-slim AS runtime
+FROM debian:buster-slim AS runtime
 LABEL maintainer="Michel Oosterhof <michel@oosterhof.net>"
 
 ENV COWRIE_GROUP=cowrie \
@@ -76,6 +75,9 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
       procps \
       python3 \
       default-libmysqlclient-dev \
+      vim \  
+      # added vim and nano
+      nano \
       python3-distutils && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /usr/bin/python3 /usr/local/bin/python
@@ -94,6 +96,6 @@ RUN cp ${COWRIE_HOME}/cowrie-git/etc/cowrie.cfg.dist ${COWRIE_HOME}/cowrie-git
 VOLUME [ "/cowrie/cowrie-git/var", "/cowrie/cowrie-git/etc" ]
 RUN mv ${COWRIE_HOME}/cowrie-git/cowrie.cfg.dist ${COWRIE_HOME}/cowrie-git/etc
 
-ENTRYPOINT [ "cowrie" ]
-CMD [ "start", "-n" ]
-EXPOSE 2222 2223
+#ENTRYPOINT [ "cowrie" ]
+#CMD [ "start", "-n" ]
+EXPOSE 2222 2223 22
