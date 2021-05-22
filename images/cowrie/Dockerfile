@@ -78,9 +78,19 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
       vim \  
       # added vim and nano
       nano \
+      curl \
       python3-distutils && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /usr/bin/python3 /usr/local/bin/python
+
+# installing filebeat
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.12.1-amd64.deb
+RUN dpkg -i filebeat-7.12.1-amd64.deb
+COPY ./images/cowrie/filebeat.yml /etc/filebeat/filebeat.yml
+#ENTRYPOINT service filebeat start && bash
+RUN echo 'root:password' | chpasswd
+COPY ./images/cowrie/startup.sh /startup.sh
+
 
 COPY --from=builder ${COWRIE_HOME} ${COWRIE_HOME}
 RUN chown -R ${COWRIE_USER}:${COWRIE_GROUP} ${COWRIE_HOME}
@@ -96,6 +106,5 @@ RUN cp ${COWRIE_HOME}/cowrie-git/etc/cowrie.cfg.dist ${COWRIE_HOME}/cowrie-git
 VOLUME [ "/cowrie/cowrie-git/var", "/cowrie/cowrie-git/etc" ]
 RUN mv ${COWRIE_HOME}/cowrie-git/cowrie.cfg.dist ${COWRIE_HOME}/cowrie-git/etc
 
-#ENTRYPOINT [ "cowrie" ]
-#CMD [ "start", "-n" ]
+CMD "/startup.sh"
 EXPOSE 2222 2223 22
