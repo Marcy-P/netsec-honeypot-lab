@@ -43,6 +43,8 @@ services:
     tty: true        # docker run -t
     cap_add:
       - ALL
+    ports: 
+      - "8080:80"
     mac_address: 02:42:c0:a8:00:15
     networks:
       network:
