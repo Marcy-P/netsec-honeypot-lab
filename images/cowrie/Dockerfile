@@ -90,7 +90,8 @@ COPY ./images/cowrie/filebeat.yml /etc/filebeat/filebeat.yml
 #ENTRYPOINT service filebeat start && bash
 RUN echo 'root:password' | chpasswd
 COPY ./images/cowrie/startup.sh /startup.sh
-
+RUN chmod go-w /etc/filebeat/filebeat.yml
+RUN chmod +x /startup.sh
 
 COPY --from=builder ${COWRIE_HOME} ${COWRIE_HOME}
 RUN chown -R ${COWRIE_USER}:${COWRIE_GROUP} ${COWRIE_HOME}
