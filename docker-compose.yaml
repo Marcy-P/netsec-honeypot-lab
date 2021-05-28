@@ -49,6 +49,36 @@ services:
     networks:
       network:
         ipv4_address: 192.168.0.30
+        
+  dionaea:
+    image: dinotools/dionaea
+    container_name: dionaea
+    hostname: dionaea
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    cap_add:
+      - ALL
+    ports: 
+      - "21:21"
+      - "42:42"
+      - "69:69/udp"
+      - "80:80"
+      - "135:135"
+      - "443:443"
+      - "445:445"
+      - "1433:1433"
+      - "1723:1723"
+      - "1883:1883"
+      - "1900:1900/udp"
+      - "3306:3306"
+      - "5060:5060"
+      - "5060:5060/udp"
+      - "5061:5061"
+      - "11211:11211"
+    mac_address: 02:42:c0:a8:00:16
+    networks:
+      network:
+        ipv4_address: 192.168.0.40
   
   elasticsearch:
     build:
