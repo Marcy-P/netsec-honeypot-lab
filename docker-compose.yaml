@@ -28,6 +28,11 @@ services:
     tty: true        # docker run -t
     cap_add:
       - ALL
+    ports: 
+      - "9990-9999:9990-9999"
+    volumes:
+      - $HOME/.msf4:/root/.msf4
+      - /tmp/msf:/tmp/data
     mac_address: 02:42:c0:a8:00:14
     networks:
       network:
@@ -51,7 +56,9 @@ services:
         ipv4_address: 192.168.0.30
         
   dionaea:
-    image: dinotools/dionaea
+    build: 
+      context: .
+      dockerfile: images/dionaea/Dockerfile
     container_name: dionaea
     hostname: dionaea
     stdin_open: true # docker run -i
@@ -65,7 +72,7 @@ services:
       - "80:80"
       - "135:135"
       - "443:443"
-      - "445:445"
+      - "777:445"
       - "1433:1433"
       - "1723:1723"
       - "1883:1883"
