@@ -39,7 +39,7 @@ fi
 
 echo "Starting filebeat ..."
 service filebeat start
+/bin/bash
 
-
-echo "Starting dionaea ..."
-exec /opt/dionaea/bin/dionaea -u dionaea -g dionaea -c /opt/dionaea/etc/dionaea/dionaea.cfg "$@"
+#echo "Starting dionaea ..."
+#exec /opt/dionaea/bin/dionaea -u dionaea -g dionaea -c /opt/dionaea/etc/dionaea/dionaea.cfg "$@"
