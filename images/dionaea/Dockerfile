@@ -17,6 +17,7 @@ RUN chmod +x /opt/dionaea/bin/entrypoint.sh
 COPY ./images/dionaea/readlogsqltree.py /opt/dionaea/readlogsqltree.py
 RUN chmod +x /opt/dionaea/readlogsqltree.py
 
-#COPY ./images/dionaea/log_json.yaml /opt/dionaea/etc/dionaea/ihandlers-enabled/log_json.yaml
+COPY ./images/dionaea/log_json.yaml /opt/dionaea/template/etc/dionaea/ihandlers-enabled/log_json.yaml
+COPY ./images/dionaea/virustotal.yaml /opt/dionaea/template/etc/dionaea/ihandlers-enabled/virustotal.yaml
 
 ENTRYPOINT ["/opt/dionaea/bin/entrypoint.sh"]
