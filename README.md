@@ -98,4 +98,6 @@ $ ./startup/dionaea.sh
 ## References:
 
 * The dockerfiles used in this project to run ELK stack were pulled from: [Docker-elk](https://github.com/deviantony/docker-elk)
-* The cowrie instances uses the official Docker image. More detail configurations in the [Cowrie Docker Repository](https://github.com/cowrie/docker-cowrie)
+* The cowrie instance uses the official Docker image. More detail configurations in the [Cowrie Docker Repository](https://github.com/cowrie/docker-cowrie)
+* The dionaea instance uses the official Docker image. More detail configurations in the [Dionaea Repository](https://github.com/DinoTools/dionaea)
+* The attacker container uses the Metasploit image taken from the following repository: [Metasploit Repository](https://github.com/phocean/dockerfile-msf)
