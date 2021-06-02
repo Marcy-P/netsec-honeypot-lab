@@ -1,7 +1,7 @@
 # netsec-honeypot-lab
 
 ## Group members
-* Meshini Marcello
+* Meschini Marcello
 * Da Rold Giovanni
 
 ## Requirements
