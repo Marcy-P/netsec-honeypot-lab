@@ -48,10 +48,21 @@ After bringing up the network wait a minute for the kibana setup process. After 
 * user: elastic
 * password: changeme
 
+or
+
+* user: netsec
+* password: password
+
 ### Cowrie
 To access the Cowrie docker instance type:
 ```console
 $ docker exec -it cowrie /bin/bash
+```
+
+or typing:
+
+```console
+$ ./startup/cowrie.sh
 ```
 To start up cowrie type:
 ```console
@@ -66,7 +77,24 @@ You can access the "attacker" instance with the command:
 ```console
 $ docker exec -it attacker /bin/bash
 ```
+or typing:
 
+```console
+$ ./startup/attacker.sh
+```
+### Dionaea
+Dionaea starts up automatically when the Docker container is created.
+
+You can access the "dionaea" instance with the command:
+```console
+$ docker exec -it dionaea /bin/bash
+```
+
+or typing:
+
+```console
+$ ./startup/dionaea.sh
+```
 ## References:
 
 * The dockerfiles used in this project to run ELK stack were pulled from: [Docker-elk](https://github.com/deviantony/docker-elk)
