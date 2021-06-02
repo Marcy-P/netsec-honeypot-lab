@@ -22,14 +22,14 @@ def print_offers(cursor, connection, indent):
         "SELECT * from offers WHERE connection = ?", (connection, ))
     offers = resolve_result(r)
     for offer in offers:
-        print("{:s} offer: {:s}".format(' ' * indent, offer['offer_url']))
+        print("{} offer: {}".format(' ' * indent, offer['offer_url']))
 
 def print_downloads(cursor, connection, indent):
     r = cursor.execute(
         "SELECT * from downloads WHERE connection = ?", (connection, ))
     downloads = resolve_result(r)
     for download in downloads:
-        print("{:s} download: {:s} {:s}".format(
+        print("{} download: {} {}".format(
             ' ' * indent, download['download_md5_hash'],
             download['download_url']))
         print_virustotals(cursor, download['download_md5_hash'], indent + 2 )
@@ -47,14 +47,14 @@ def print_virustotals(cursor, md5_hash, indent):
     for vt in virustotals:
         if vt['timestamp'] is None:
             continue
-        print("{:s} virustotal {} {}/{} ({:.0f}%) {}".format(' ' * indent, vt['timestamp'], vt[
+        print("{} virustotal {} {}/{} ({:.0f}%) {}".format(' ' * indent, vt['timestamp'], vt[
               'detected'], vt['scanners'], vt['detected']/vt['scanners']*100, vt['virustotal_permalink']))
 
 
     r = cursor.execute(
         "SELECT DISTINCT virustotalscan_result from virustotals NATURAL JOIN virustotalscans WHERE virustotal_md5_hash  = ? AND virustotalscan_result IS NOT NULL", (md5_hash, ))
     virustotals = resolve_result(r)
-    print("{:s} names ".format(' ' * (indent+2)), end='')
+    print("{} names ".format(' ' * (indent+2)), end='')
     for vt in virustotals:
         print("'{}' ".format(vt['virustotalscan_result']), end='')
     print("")
@@ -64,7 +64,7 @@ def print_profiles(cursor, connection, indent):
         "SELECT * from emu_profiles WHERE connection = ?", (connection, ))
     profiles = resolve_result(r)
     for profile in profiles:
-        print("{:s} profile: {:s}".format(
+        print("{} profile: {}".format(
             ' ' * indent, json.loads(profile['emu_profile_json'])))
 
 def print_services(cursor, connection, indent):
@@ -72,7 +72,7 @@ def print_services(cursor, connection, indent):
         "SELECT * from emu_services WHERE connection = ?", (connection, ))
     services = resolve_result(r)
     for service in services:
-        print("{:s} service: {:s}".format(
+        print("{} service: {}".format(
             ' ' * indent, service['emu_service_url']))
 
 def print_p0fs(cursor, connection, indent):
@@ -80,7 +80,7 @@ def print_p0fs(cursor, connection, indent):
         "SELECT * from p0fs WHERE connection = ?", (connection, ))
     p0fs = resolve_result(r)
     for p0f in p0fs:
-        print("{:s} p0f: genre:'{}' detail:'{}' uptime:'{}' tos:'{}' dist:'{}' nat:'{}' fw:'{}'".format(
+        print("{} p0f: genre:'{}' detail:'{}' uptime:'{}' tos:'{}' dist:'{}' nat:'{}' fw:'{}'".format(
             ' ' * indent, p0f['p0f_genre'], p0f['p0f_detail'],
             p0f['p0f_uptime'], p0f['p0f_tos'], p0f[
                 'p0f_dist'], p0f['p0f_nat'],
@@ -99,7 +99,7 @@ def print_dcerpcbinds(cursor, connection, indent):
 			connection = ?""", (connection, ))
     dcerpcbinds = resolve_result(r)
     for dcerpcbind in dcerpcbinds:
-        print("{:s} dcerpc bind: uuid '{:s}' ({:s}) transfersyntax {:s}".format(
+        print("{} dcerpc bind: uuid '{}' ({}) transfersyntax {}".format(
             ' ' * indent,
             dcerpcbind['dcerpcbind_uuid'],
             dcerpcbind['dcerpcservice_name'],
@@ -122,7 +122,7 @@ def print_dcerpcrequests(cursor, connection, indent):
 			connection = ?""", (connection, ))
     dcerpcrequests = resolve_result(r)
     for dcerpcrequest in dcerpcrequests:
-        print("{:s} dcerpc request: uuid '{:s}' ({:s}) opnum {:d} ({:s} ({:s}))".format(
+        print("{} dcerpc request: uuid '{}' ({}) opnum {:d} ({} ({}))".format(
             ' ' * indent,
             dcerpcrequest['dcerpcrequest_uuid'],
             dcerpcrequest['dcerpcservice_name'],
@@ -144,13 +144,13 @@ def print_sip_commands(cursor, connection, indent):
 			connection = ?""", (connection, ))
     sipcommands = resolve_result(r)
     for cmd in sipcommands:
-        print("{:s} Method:{:s}".format(
+        print("{} Method:{}".format(
             ' ' * indent,
             cmd['sip_command_method']))
-        print("{:s} Call-ID:{:s}".format(
+        print("{} Call-ID:{}".format(
             ' ' * indent,
             cmd['sip_command_call_id']))
-        print("{:s} User-Agent:{:s}".format(
+        print("{} User-Agent:{}".format(
             ' ' * indent,
             cmd['sip_command_user_agent']))
         print_sip_addrs(cursor, cmd['sip_command'], indent+2)
@@ -174,7 +174,7 @@ def print_sip_addrs(cursor, sip_command, indent):
 			sip_command = ?""", (sip_command, ))
     addrs = resolve_result(r)
     for addr in addrs:
-        print("{:s} {:s}: <{}> '{:s}:{:s}@{:s}:{}'".format(
+        print("{} {}: <{}> '{}:{}@{}:{}'".format(
             ' ' * indent,
             addr['sip_addr_type'],
             addr['sip_addr_display_name'],
@@ -195,7 +195,7 @@ def print_sip_vias(cursor, sip_command, indent):
 			sip_command = ?""", (sip_command, ))
     vias = resolve_result(r)
     for via in vias:
-        print("{:s} via:'{:s}/{:s}:{}'".format(
+        print("{} via:'{}/{}:{}'".format(
             ' ' * indent,
             via['sip_via_protocol'],
             via['sip_via_address'],
@@ -216,7 +216,7 @@ def print_sip_sdp_origins(cursor, sip_command, indent):
 			sip_command = ?""", (sip_command, ))
     vias = resolve_result(r)
     for via in vias:
-        print("{:s} o:'{} {} {} {} {} {}'".format(
+        print("{} o:'{} {} {} {} {} {}'".format(
             ' ' * indent,
             via['sip_sdp_origin_username'],
             via['sip_sdp_origin_sess_id'],
@@ -239,7 +239,7 @@ def print_sip_sdp_connectiondatas(cursor, sip_command, indent):
 			sip_command = ?""", (sip_command, ))
     vias = resolve_result(r)
     for via in vias:
-        print("{:s} c:'{} {} {} {} {}'".format(
+        print("{} c:'{} {} {} {} {}'".format(
             ' ' * indent,
             via['sip_sdp_connectiondata_nettype'],
             via['sip_sdp_connectiondata_addrtype'],
@@ -260,7 +260,7 @@ def print_sip_sdp_medias(cursor, sip_command, indent):
 			sip_command = ?""", (sip_command, ))
     vias = resolve_result(r)
     for via in vias:
-        print("{:s} m:'{} {} {} {}'".format(
+        print("{} m:'{} {} {} {}'".format(
             ' ' * indent,
             via['sip_sdp_media_media'],
             via['sip_sdp_media_port'],
@@ -277,7 +277,7 @@ def print_logins(cursor, connection, indent):
 		WHERE connection = ?""", (connection, ))
     logins = resolve_result(r)
     for login in logins:
-        print("{:s} login - user:'{:s}' password:'{:s}'".format(
+        print("{} login - user:'{}' password:'{}'".format(
             ' ' * indent,
             login['login_username'],
             login['login_password']))
@@ -293,7 +293,7 @@ def print_mssql_fingerprints(cursor, connection, indent):
 		WHERE connection = ?""", (connection, ))
     fingerprints = resolve_result(r)
     for fingerprint in fingerprints:
-        print("{:s} mssql fingerprint - hostname:'{:s}' cltintname:'{:s}' appname:'{:s}'".format(
+        print("{} mssql fingerprint - hostname:'{}' cltintname:'{}' appname:'{}'".format(
             ' ' * indent,
             fingerprint['mssql_fingerprint_hostname'],
             fingerprint['mssql_fingerprint_appname'],
@@ -309,7 +309,7 @@ def print_mssql_commands(cursor, connection, indent):
 		WHERE connection = ?""", (connection, ))
     commands = resolve_result(r)
     for cmd in commands:
-        print("{:s} mssql command - status:{:s} cmd:'{:s}'".format(
+        print("{} mssql command - status:{} cmd:'{}'".format(
             ' ' * indent,
             cmd['mssql_command_status'],
             cmd['mssql_command_cmd']))
@@ -328,7 +328,7 @@ def print_mysql_commands(cursor, connection, indent):
 			connection = ?""", (connection, ))
     commands = resolve_result(r)
     for cmd in commands:
-        print("{:s} mysql command (0x{:02x}) {:s}".format(
+        print("{} mysql command (0x{:02x}) {}".format(
             ' ' * indent,
             cmd['mysql_command_cmd'],
             cmd['mysql_command_op_name']
@@ -344,7 +344,7 @@ def print_mysql_commands(cursor, connection, indent):
 		ORDER BY
 			mysql_command_arg_index ASC """, (cmd['mysql_command'], ))
         args = resolve_result(r)
-        print("({:s})".format(
+        print("({})".format(
             ",".join([ "'%s'" % arg['mysql_command_arg_data'] for arg in args])))
 
 
@@ -352,19 +352,19 @@ def print_connection(c, indent):
     indentStr = ' ' * (indent + 1)
 
     if c['connection_type'] in ['accept', 'reject', 'pending']:
-        print(indentStr + 'connection {:d} {:s} {:s} {:s} {:s}:{:d} <- {:s}:{:d}'.format(
+        print(indentStr + 'connection {:d} {} {} {} {}:{:d} <- {}:{:d}'.format(
             c['connection'], c['connection_protocol'], c[
                 'connection_transport'],
             c['connection_type'], c['local_host'], c['local_port'],
             c['remote_host'], c['remote_port']), end='')
     elif c['connection_type'] == 'connect':
-        print(indentStr + 'connection {:d} {:s} {:s} {:s} {:s}:{:d} -> {:s}/{:s}:{:d}'.format(
+        print(indentStr + 'connection {:d} {} {} {} {}:{:d} -> {}/{}:{:d}'.format(
             c['connection'], c['connection_protocol'],
             c['connection_transport'], c['connection_type'], c['local_host'],
             c['local_port'], c['remote_hostname'], c['remote_host'],
             c['remote_port']), end='')
     elif c['connection_type'] == 'listen':
-        print(indentStr + 'connection {:d} {:s} {:s} {:s} {:s}:{:d}'.format(
+        print(indentStr + 'connection {:d} {} {} {} {}:{:d}'.format(
             c['connection'], c['connection_protocol'],
             c['connection_transport'], c['connection_type'], c['local_host'],
             c['local_port']), end='')
@@ -426,7 +426,7 @@ WHERE
 
     if options.remote_host:
         query = query + \
-            "\tAND remote_host = '{:s}' \n".format(options.remote_host)
+            "\tAND remote_host = '{}' \n".format(options.remote_host)
 
     if options.connection:
         query = query + \
@@ -434,40 +434,40 @@ WHERE
 
     if options.in_offer_url:
         query = query + \
-            "\tAND offer_url LIKE '%{:s}%' \n".format(options.in_offer_url)
+            "\tAND offer_url LIKE '%{}%' \n".format(options.in_offer_url)
 
     if options.in_download_url:
         query = query + \
-            "\tAND download_url LIKE '%{:s}%' \n".format(
+            "\tAND download_url LIKE '%{}%' \n".format(
                 options.in_download_url)
 
     if options.time_from:
         query = query + \
-            "\tAND connection_timestamp > {:s} \n".format(options.time_from)
+            "\tAND connection_timestamp > {} \n".format(options.time_from)
 
     if options.time_to:
         query = query + \
-            "\tAND connection_timestamp < {:s} \n".format(options.time_to)
+            "\tAND connection_timestamp < {} \n".format(options.time_to)
 
     if options.uuid:
         query = query + \
-            "\tAND dcerpcbind_uuid = '{:s}' \n".format(options.uuid)
+            "\tAND dcerpcbind_uuid = '{}' \n".format(options.uuid)
 
     if options.opnum:
         query = query + \
-            "\tAND dcerpcrequest_opnum = {:s} \n".format(options.opnum)
+            "\tAND dcerpcrequest_opnum = {} \n".format(options.opnum)
 
     if options.protocol:
         query = query + \
-            "\tAND connection_protocol = '{:s}' \n".format(options.protocol)
+            "\tAND connection_protocol = '{}' \n".format(options.protocol)
 
     if options.md5sum:
         query = query + \
-            "\tAND download_md5_hash = '{:s}' \n".format(options.md5sum)
+            "\tAND download_md5_hash = '{}' \n".format(options.md5sum)
 
     if options.type:
         query = query + \
-            "\tAND connection_type = '{:s}' \n".format(options.type)
+            "\tAND connection_type = '{}' \n".format(options.type)
 
     if options.query:
         print(query)
@@ -479,7 +479,7 @@ WHERE
         connections = resolve_result(result)
 #		print(connections)
         for c in connections:
-            print("{:s}".format(c['connection_timestamp']))
+            print("{}".format(c['connection_timestamp']))
             print_connection(c, 1)
             print_p0fs(cursor, c['connection'], 2)
             print_dcerpcbinds(cursor, c['connection'], 2)
