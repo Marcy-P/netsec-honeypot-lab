@@ -6,4 +6,4 @@
     # grab it from your virustotal account at My account -> My API Key (https://www.virustotal.com/en/user/<username>/apikey/)
     apikey: "a8b9d3d9f00ba68132c37db2643deddafe0d7e88c30ad66abf4f73726f54ad82"
     file: "var/lib/dionaea/vtcache.sqlite"
-    # comment: "This sample was captured in the wild and uploaded by the dionaea honeypot.\n#honeypot #malware #networkworm"
+    comment: "This sample was captured in the wild and uploaded by the dionaea honeypot.\n#honeypot #malware #networkworm"
