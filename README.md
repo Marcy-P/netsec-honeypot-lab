@@ -1,5 +1,9 @@
 # netsec-honeypot-lab
 
+## Group members
+* Meshini Marcello
+* Da Rold Giovanni
+
 ## Requirements
 ### Host setup
 
