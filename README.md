@@ -1,8 +1,8 @@
 # netsec-honeypot-lab
 
 ## Group members
-* Meschini Marcello
-* Da Rold Giovanni
+* Meschini Marcello - 220222
+* Da Rold Giovanni - 224291
 
 ## Requirements
 ### Host setup
