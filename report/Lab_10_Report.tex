@@ -2,7 +2,7 @@
 \usepackage{epsfig}
 \usepackage{plain}
 \usepackage{setspace}
-\usepackage[paperheight=29.7cm,paperwidth=21cm,outer=1.5cm,inner=2.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[paperheight=29.7cm,paperwidth=21cm,outer=2cm,inner=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{titlesec} % per formato custom dei titoli dei capitoli
 
 \usepackage{hyperref}
@@ -118,24 +118,77 @@ $ docker-compose down -v
 \chapter{What is a honeypot?}
 \label{cha:intro}
 
-"A honeypot is a network-attached system set up as a decoy to lure cyber attackers and detect, deflect and study hacking attempts to gain unauthorized access to information systems"\cite{coulouris}. So it is a system that is unprotected and serves no business purpose but sits in the network waiting to be contacted. Every interaction with a honeypot is suspicious because no legitimate user should utilize it.
+"A honeypot is a network-attached system set up as a decoy to lure cyber attackers and detect, deflect and study hacking attempts to gain unauthorized access to information systems"\cite{techtarget}. So it is a system that is unprotected and serves no business purpose but sits in the network waiting to be contacted. Every interaction with a honeypot is suspicious because no legitimate user should utilize it.
 
 \chapter{Characteristics of a honeypot}
 \label{cha:characteristics}
 
-Honeypots have four main characteristics; they have to be:
-\begin{enumerate}
-\item Deceptive
-\item Discoverable
-\item Interactive
-\item Monitored
-\end{enumerate}
+Honeypots have four main characteristics; they have to be: \textbf{Deceptive} , \textbf{Discoverable}, \textbf{Interactive}, \textbf{Monitored}.
 
 \section{Deception}
+
+Deception can be defined as an advantageous distortion of an adversary's perceptions of reality. Honeypots heavily use this concept as a tool because they appear as real systems, but they do not serve any functional purpose for a business.
+
+There are various frameworks that try to classify various deception strategies, and we considered the taxonomy proposed by Bell and Whaley \cite{Whaley}. According to this model deception consists in two main parts: hiding the real (dissimulation) and showing the false (simulation).
+
+Honeypots are meant to be reachable, so you do not hide it entirely, but you often have to hide specific features of them to make them less suspicious.
+The techniques to hide the real are:
+\begin{itemize}
+\item \textbf{Masking}: hide the  real by making relevant objects be undetectable or blend into the background;
+\item \textbf{Repackaging}: hide the  real by making it appear like it is something different;
+\item \textbf{Dazzling}: hide the real by altering an object to confuse the adversary;
+\end{itemize}
+
+The techniques to show the false are:
+\begin{itemize}
+
+\item \textbf{Mimicking}: show the false by using characteristics present in the actual real object;
+\item \textbf{Inventing}: show the false by giving the perception that a relevant object exist while it does not; 
+\item \textbf{Decoying}: show the false by misdirecting and attracting the attacker attention away from real objects.
+\end{itemize}
+Note that not every honeypot has to strictly follow these techniques. It is just a theoretical framework that you may want to use when creating and deploying a honeypot. 
+
 \section{Discoverability}
+Honeypots are not meant to be accessed by legitimate users but just the attacker. So when designing your honeypot you have to consider the point of view of the attacker.
+In particular, you can ask yourself the following questions:
+\begin{itemize}
+\item Where is the attacker more likely to enter your network?
+	\begin{itemize}
+	\item User workstations
+	\item Vulnerable services exposed to the internet
+	\item Stolen VPN credentials
+	\end{itemize}
+\item What tool will they use to discover your asset?
+\item What assets will they be interested in?
+\end{itemize}
+
+To increase discoverability, you might also place \textbf{breadcrumbs} in systems that might be compromised. They are data that will lead the attacker to your honeypot while the attacker is gathering information needed to do lateral movement in the network. An example of breadcrumbs is a clear text document containing an URL or IP of a honeypot and some credential or SSH private keys.
+
 \section{Interactivity}
+
+Technically a single attacker interaction is enough to produce an alert. But is better if the honeypot responds back to the attacker for two main reasons:
+\begin{itemize}
+\item Each interaction that attacker does with the honeypot could provide you important information. For example, if they stole some credential, you may be able to know the account that was compromised. You may be able to find out what tool they use to enter  your network
+\item Make the attacker waste time. Every second that the attacker spends interacting with the honeypot is a second you can invest into finding out which systems were compromised and isolate the attacker
+\end{itemize}
+
+
+
 \section{Monitoring}
 
+\chapter{Honeypots classification}
+
+\chapter{Advantages of honeypots}
+
+\chapter{Cowrie}
+
+\chapter{Dionaea}
+
+\chapter{Honeytokens}
+
+\chapter{Lab monitoring infrastructure}
+
+\chapter{Honeypots for IoT}
 \endgroup
 
 
