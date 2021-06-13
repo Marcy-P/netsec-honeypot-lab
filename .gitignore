@@ -1,0 +1,8 @@
+# ignore latex
+*.gz
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
