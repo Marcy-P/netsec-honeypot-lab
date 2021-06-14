@@ -66,9 +66,9 @@
 \renewcommand{\cleardoublepage}{} 
 \renewcommand{\clearpage}{} 
 \titleformat{\chapter}
-  {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+  {\normalfont\huge\bfseries}{\thechapter}{1em}{}
   
-\titlespacing*{\chapter}{0pt}{0.59in}{0.02in}
+\titlespacing*{\chapter}{0pt}{0.30in}{0.02in}
 \titlespacing*{\section}{0pt}{0.20in}{0.02in}
 \titlespacing*{\subsection}{0pt}{0.10in}{0.02in}
 
@@ -117,6 +117,8 @@ $ docker-compose down
 $ docker-compose down -v
 \end{lstlisting}
 
+\newpage
+
 \chapter{What is a honeypot?}
 \label{cha:intro}
 
@@ -125,7 +127,7 @@ $ docker-compose down -v
 \chapter{Characteristics of a honeypot}
 \label{cha:characteristics}
 
-Honeypots have four main characteristics; they have to be: \textbf{Deceptive} , \textbf{Discoverable}, \textbf{Interactive}, \textbf{Monitored}.
+Honeypots have four main characteristics; they have to be: \textbf{Deceptive} , \textbf{Discoverable}, \textbf{Interactive}, \textbf{Monitored} \cite{sanders2020intrusion}.
 
 \section{Deception}
 
@@ -150,6 +152,7 @@ The techniques to show the false are:
 \item \textbf{Decoying}: show the false by misdirecting and attracting the attacker attention away from real objects.
 \end{itemize}
 Note that not every honeypot has to strictly follow these techniques. It is just a theoretical framework that you may want to use when creating and deploying a honeypot. 
+A more in depth analysis of the usage of deception for cyber defense can be found in the following paper "Deception used for Cyber Defense of  Control Systems" \cite{deception_defense}.
 
 \section{Discoverability}
 Honeypots are not meant to be accessed by legitimate users but just the attacker. So when designing your honeypot you have to consider the point of view of the attacker.
@@ -195,24 +198,29 @@ Another mechanism that you can implement in parallel to the logging infrastructu
 
 \chapter{Honeypots classification}
 
+Honeypots can be classified on the basis of different characteristics. The two main classifications are based on level of interaction and on the goal.
 
 \section{Based on level of interaction}
 
-Honeypots are classified by their degree of interaction with the communication destination (attacker) as a low interaction, medium interaction or  high interaction type. However, this does not mean that the high interaction type is better than the low interaction type. These terms are used in different ways depending on implementation, usage and purpose.
-\begin{itemize}
-\item Low interaction: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy, and are also more secure compared to high interaction honeypots, because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may notice this machine as a honeypot. 
+Honeypots are classified by their degree of interaction with the communication destination (attacker) as a low interaction, medium interaction or  high interaction type. However, this does not mean that one type is better than the others. These terms are used in different ways depending on implementation, usage and purpose.
 
-\item High interaction: high interaction honeypots allow the attackers interacting with real systems and do not assume anything about the possible behavior of the attacker. They help the administrator to investigate the complete activities of the attackers, utilizing the operating systems (eg Linux) and applications (eg FTP) without using the emulation software (eg dionaea) to record the activities of attackers. In most cases attackers are unable to recognize the honeypot because it behaves similarly to the actual target host. However these systems require more resources and are difficult to set up and maintain; also the possibility of infection from the malware or hacking by the attacker is higher than for the low interaction type honeypot. Therefore, the system should be monitored properly, and it is necessary to be prepared to restore the system to the state before the infection of malware.
-\item medium-interaction honeypots are a combination of low-interaction and high-interaction honeypots, capable of emulating full services or specific vulnerabilities. Similar to low-interaction honeypots, their primary purpose is detection and are installed as an application on the host operating system with only the emulated services being presented to the public. The key feature of a medium-interaction honeypot is application layer virtualization. They do not aim at simulating a fully operational system environment, nor do they implement all details of an application protocol. They provide sufficient responses that known exploits waiting on certain ports will be tricked into sending their payload. Once this payload has been received, the shellcode can be extracted and analyzed. The medium-interaction honeypot then emulates the actions the shellcode would perform to download the malware.
+\begin{itemize}
+\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy, and are also more secure compared to high interaction honeypots, because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognise this machine as a honeypot. 
+
+\item \textit{High interaction}: high interaction honeypots allow the attackers interacting with real systems and do not assume anything about the possible behavior of the attacker. They help the administrator to investigate the complete activities of the attackers, utilizing the operating systems (e.g. Linux) and applications (e.g. FTP) without using the emulation software (e.g. Dionaea) to record the activities of attackers. In most cases attackers are unable to recognize the honeypot because it behaves similarly to the actual target host. However these systems require more resources and are difficult to set up and maintain; also the possibility of infection from the malware or hacking by the attacker is higher than for the low interaction type honeypot. Therefore, the system should be monitored properly, and it is necessary to be prepared to restore the system to the state before the infection of malware.
+
+\item \textit{Medium interaction}: medium-interaction honeypots are a combination of low-interaction and high-interaction honeypots, capable of emulating full services or specific vulnerabilities. Similar to low-interaction honeypots, their primary purpose is detection and are installed as an application on the host operating system with only the emulated services being presented to the public. The key feature of a medium-interaction honeypot is application layer virtualization. They do not aim at simulating a totally operational system environment, nor do they implement all details of an application protocol. They provide sufficient responses that known exploits waiting on certain ports are going to be tricked into sending their payload. Once this payload has been received, the shellcode can be extracted and analyzed. After that, the honeypot emulates the actions that the shellcode would take to download the malware.
  
 \end{itemize}
 
 \section{Based on the goal}
 
 \begin{itemize}
-\item Research honeypots: these are deployed by various security researchers to assess cyber threats, study the real motivation behind the attacks and capture various zero-day exploits. They help in gathering information about attacks and what kind of hacking (attacking) techniques are being used by the attackers. Various logging tools are used to log each and every activity happening on the honeypot, which can really help researchers to study the various advanced methodologies used by an attacker. They mainly consist of high interaction honeypots, in fact they are complex to deploy and maintain.
+\item \textit{Research honeypots}: these are deployed by various security researchers to assess cyber threats, study the real motivation behind the attacks and capture various zero-day exploits. They help in gathering information about attacks and what kind of hacking (attacking) techniques are being used by the attackers. Various logging tools are used to log each and every activity happening on the honeypot, which can really help researchers to study the various advanced methodologies used by an attacker. They mainly consist of high interaction honeypots, in fact they are complex to deploy and maintain.
 
-\item Production honeypots: these are deployed by organizations to mitigate threats and protect themselves from various attacks. They require less resources and can be easily deployed. Production honeypots are often placed near security assets, in order to alert defenders of an attack; they are cheap and usually belong to the low interaction type. Use of low interaction type includes port scan identification, generation of attack signatures, trend analysis and malware collection. On the other hand, this is also a disadvantage, indeed it is not possible to watch how an attacker interacts with the operating system as all the services are emulated.
+
+\item \textit{Production honeypots}: these are deployed by organizations to mitigate threats and protect themselves from various attacks. They require less resources and can be easily deployed. Production honeypots are often placed near security assets, in order to alert defenders of an attack; they are cheap and usually belong to the low interaction type. Use of low interaction type includes port scan identification, generation of attack signatures, trend analysis and malware collection. On the other hand, this is also a disadvantage, indeed it is not possible to watch how an attacker interacts with the operating system as all the services are emulated.
+
 
 \end{itemize}
 
@@ -389,11 +397,142 @@ Now when executing the command \texttt{nmap} the attacker will receive the stati
 
 \chapter{Dionaea}
 
+\section{Dionaea Architecture}
+
+\subsection{Introduction}
+
+As described in \cite{dionaea}, Dionaea is the successor of the Nepenthes system and belongs to the low interaction type. The main goal of Dionaea is to trap malwares exploiting vulnerabilities exposed by services offered to a network, the ultimate goal is gaining a copy of the malwares.
+
+Dionaea, like any software, is likely to contain bugs that may be exploited. In order to reduce the effect, Dionaea runs in a limited environment with no administrative access. It emulates services such as FTP, HTTP, MSSQL (Microsoft SQL server), MySQL, SMB, TFTP, SIP and others; these services emulate a vulnerable server running Windows OS. SMB is the most vulnerable service running in Dionaea, which utilizes well-known port 445.
+
+In addition, this honeypot has the following features:
+\begin{enumerate}
+\itemsep0em 
+\item It is composed of a modular architecture, embedding Python as its scripting language in order to emulate protocols;
+\item It supports IPv6 and TLS (Transport Layer Security);
+\item It can obtain a detailed analysis of captured malwares, by sending them automatically to the VirusTotal platform.
+\end{enumerate}
+
+\subsection{Exploitation}
+
+Dionaea has to detect and evaluate the payload to be able to gain a copy of the malware. In order to do so, Dionaea uses libemu. Given certain circumstances, libemu can detect shellcode, measure the shellcode, and if required even execute the shellcode.
+
+Shellcode measurement/profiling is realized by executing the shellcode in the libemu virtual machine and recording API calls and arguments. In most of the cases shellcode profiling is sufficient, since the recorded API calls and arguments reveal enough information to get an idea of the attackers intentions. For multi-stage shellcode, where the first exploitation stage of the shellcode would retrieve a second shellcode from the attacker, profiling is not sufficient, as we don’t know what will happen from the second stage of the shellcode. In this case we need to make use of shellcode execution: this is basically the same as shellcode profiling, the only difference is that api calls are not recorded, and also the shellcode is allowed to perform certain actions.
+
+After the shellcode profiling has been done, Dionaea has to guess the intention, and act upon it.
+
+\subsection{Logging}
+
+Dionaea offers a logging system which logs all the activities in a clear text file, which can be used for analysis and attack prediction. However, this type of logging to a text file is very chatty, and you do not want to use it unless for debugging or development purposes.
+
+In addition to that, Dionaea uses some internal communication system which is called incidents. Incidents, containing information about the origin and properties of an “attack”, are passed using incident handlers (ihandlers). An ihandler can register a path for incidents he wants to get informed about, and  the paths are matched in a glob like fashion. Therefore logging information using an ihandler is superior to text logging, because you get the information you are looking for, and can write it to a format you choose yourself; in other words it’s a more scalable solution.
+
+The most useful ihandler is the \texttt{log\_sqlite}, which writes interesting incidents to a sqlite database. One of the benefits of this logging is the ability to cluster incidents based on the initial attack when retrieving the data from the database; another interesting one is the \texttt{log\_json} ihandler, which permits to save the logs in JSON format. JSON logs can then be used, for example, to configure Dionaea to work with ELK stack.
+
+Dionaea can also dump a connection as bi-directional stream. These bi-directional streams are pretty useful when debugging, as they allow replaying an attack on ip-level. You can specify the directory where these are stored in the configuration file. Default is storing them in the directory \texttt{/opt/dionaea/var/lib/dionaea/bistreams}.
+
+\subsection{Analysis}
+
+After Dionaea has obtained a copy of a malware, it can either store the binaries locally or submit the file to some external tools or services (e.g. CWSandbox, Norman Sandbox, VirusTotal, etc.) for further analysis.
+
+\section{Let's see in practice}
+
+\subsection{Access to Dionaea}
+
+
+To enter in the Dionaea Docker instance open a terminal in the netsec-honeypot-lab folder and type:
+
+\begin{lstlisting}[language=bash]
+$ ./startup/dionaea.sh
+\end{lstlisting}
+
+\noindent At this point you are in the Ubuntu file system. In order to enter in the directory of the honeypot, type:
+\begin{lstlisting}[language=bash]
+$ cd opt/dionaea
+\end{lstlisting}
+
+\noindent Dionaea has already started automatically when the docker container was created. Otherwise, if the machine has not already started, it is possible to start it using the command:
+\begin{lstlisting}[language=bash]
+$ /opt/dionaea/bin/dionaea
+\end{lstlisting}
+The startup options can be displayed adding the \texttt{-h} flag. Another interesting one is the \texttt{--config=FILE} option, with which you can use FILE as the configuration file; the default behaviour is using the file \texttt{/opt/dionaea/etc/dionaea/dionaea.cfg}.
+
+\subsection{Directory Structure}
+
+In the Dionaea directory you can find different folders: those of greatest interest are the \texttt{etc} and \texttt{var} folders. In the first you can find the configuration file, the services and ihandlers available, and the services and ihandlers enabled, whereas the second folder contains the log files, the binaries downloaded by Dionaea, and also the sqlite database. In particular the text log file is at the path \texttt{/opt/dionaea/var/log/dionaea/dionaea.log}.
+
+You can see that there is also a python script named \texttt{readlogsqltree.py}: this is a python3 script which queries the Dionaea sqlite database for attacks, and prints out all related information for every attack; this tool provides information about the exploited vulnerability, the time, the attacker, information about the shellcode, and the file offered for download (if any). To create such report for your own honeypots activities for the last 24 hours run:
+\begin{lstlisting}[language=bash]
+$ python3 readlogsqltree.py -t $(date '+%s')-24*3600 
+/opt/dionaea/var/lib/dionaea/dionaea.sqlite
+\end{lstlisting}
+At the moment no connections are printed, because there are not any yet.
+
+\subsection{Port scan}
+
+As a first task let’s perform a port scan on the honeypot. This will show us the services running in the honeypot, and it will also reveal a strange result. In the same way done for Cowrie, enter in the attacker machine and run the command:
+\begin{lstlisting}[language=bash]
+$ nmap -sV 10.0.0.40 -Pn
+\end{lstlisting}
+It will take about 2 minutes.
+
+As you can see there are a lot of services running on the machine, and in particular the services running on port 445 and 1433, which are respectively the SMB and the MSSQL, are detected as Dionaea honeypot services. This happens because nmap recognises them from the responses received, which are the default responses of Dionaea. Having said that, if in the implementation of Dionaea these responses are changed, nmap will no longer be able to detect them.
+
+Now, if you go back to Dionaea and execute again the \texttt{readlogsqltree.py} script, you will see that many connections are reported: in fact the port scan creates a lot of traffic in order to find running services, and the honeypot has recorded all of it.
+
+\subsection{SIP OPTIONS scan}
+
+If you paid attention to the port scan, you should have seen that there is the SIP service open on port 5060/tcp, so as a second step let’s launch a SIP OPTIONS scanning. For the next tasks, in order to simulate attacks, we will use the Metasploit Framework. Inside the attacker’s machine, type:
+\begin{lstlisting}[language=bash]
+$ ./msfconsole
+\end{lstlisting}
+to run the Metasploit console.
+
+When Metasploit is ready, use the command \texttt{\$ search sip options\_tcp} to search the right module; after this use the command \texttt{\$ use 0} to use the module found. At this point you have to set the target host: to do this type \texttt{\$ set rhost 10.0.0.40}. Finally, run \texttt{\$ exploit} to launch the scan.
+
+Now go back to Dionaea and execute the python script another time. You should see that the last reported connection is a SipSession tcp connection. In this case the attack does not trigger any vulnerability, because it is only a SIP OPTIONS scan. This type of scanning is executed to spot VoIP devices and determine their capabilities. It might be a reconnaissance step of a multi-stage attack. These scans are used to identify targets and the next stage will likely target only those devices which responded during scanning. \cite{ENISA}
+
+\subsection{SMB exploitation}
+
+The next task is to try to exploit a vulnerability on the SMB protocol on port 445. As already said, this is the main protocol offered by Dionaea. SMB has a decent history of remote exploitable bugs, and is a very popular target for worms. The vulnerability that will be attempted to exploit is that detailed in Microsoft Bulletin MS10-06; it is a vulnerability in the Print Spooler service. The vulnerability could allow remote code execution if an attacker sends a specially crafted print request to a vulnerable system that has a print spooler interface exposed over RPC.
+
+Inside the Metasploit console, use the command \texttt{\$ search ms10-061} to search the right module; after this use the command \texttt{\$ use 0} to use the module found. At this point you have to set the printer share name to use on the target host: to do this type \texttt{\$ set pname XPSPrinter}. After this step you have to set the target host: to do this type \texttt{\$ set rhost 10.0.0.40}. Finally, run \texttt{\$ exploit} to launch the exploit.
+
+You can see the exploit completed, but no remote code execution session was created; this happens because Dionaea is a low interaction honeypot. However, if you go back to Dionaea and run the python script, you can see that there has been a connection from the attacker on the smb protocol; also you can see that, under the "download" section, it is reported that something has been downloaded (together with the download URL). To check what has been downloaded, enter in the binaries folder, typing:
+\begin{lstlisting}[language=bash]
+$ cd /opt/dionaea/var/lib/dionaea/binaries
+\end{lstlisting}
+
+\noindent Here you can find two files: one is the MD5 hash value of the corresponding malware, calculated by Dionaea. This MD5 hash value is used for analysis purposes: you can either submit the hash value to VirusTotal or you can submit it to any antivirus software. You can consider this hash value as a feature of a malware \cite{malware_capturing}. The other downloaded file is a tmp file.
+
+
+\subsection{MSSQL server login}
+
+Another interesting task that you can try to perform is to log into the Microsoft SQL server, which runs on port 1433. To do this, you will again use Metasploit. Inside the Metasploit console, run the command \texttt{\$ search mssql\_login} to search the right module; after this run the command \texttt{\$ use 0} to use the module found. There is a default username already set, which is ‘\texttt{sa}’: this is the administrative username on the Microsoft SQL server. At this point you have to set the password. You can choose whatever you want, indeed the login will be always successful and the task is only performed in order to see the result on the honeypot. So, for example, use the command \texttt{\$ set password pass} to set the password as \texttt{pass}. Next you have to set the target host: in order to do this run \texttt{\$ set rhost 10.0.0.40} as in the previous tasks. Finally, run \texttt{\$ exploit} to launch the exploit. The result is that you logged in successfully.
+
+Now return to Dionaea and run the python script again. You can see the last connection, which was on the mssql service, and also the username and the password used for the login. In this way, in a real scenario, it is possible to observe which are the most popular names used by hackers, and finding a way to substitute them with unknown ones will elevate the system’s security \cite{malicious_access}.
+
+The same approach of login could be used for the FTP or MySQL servers.
+
+
+\subsection{VirusTotal analysis}
+If you want to enable Virustotal to analyse the malwares you capture, you first need a Virustotal API key. To obtain it, you have to go to the website \url{https://www.virustotal.com/} and sign up; in this way you will automatically obtain a key. Once you have the API key, you have to go to the folder \texttt{/opt/dionaea/etc/dionaea/ihandlers-available} and modify the ihandler file named \texttt{virustotal.yaml}; here you have to paste your API key in the indicated place. In this case there is already a pasted key, which is the key utilized by us. After this, save and exit. Next change the directory to \texttt{/opt/dionaea/etc/dionaea/ihandlers-enabled}. Now, you need to create a symbolic link here (which has already been created)  to the edited \texttt{virustotal.yaml} file typing:
+
+\begin{lstlisting}[language=bash]
+$ ln -s ../ihandlers-available/virustotal.yaml virustotal.yaml
+\end{lstlisting}
+
+\noindent After following this procedure, in theory your new captured malware should now be identified, and you should be able to look at the analysis running the python script used for the previous tasks. In practice however, there is actually a bug in the current version of Dionaea for which the feature does not work (but this bug will certainly be fixed soon).
+
+Also, in the directory \texttt{/opt/dionaea/var/lib/dionaea} there is a sqlite database named  \linebreak \texttt{vtcache.sqlite}. This is used to cache the results of the performed analyzes.
+
+
+
 \chapter{Honeyfiles}
 
 A honeyfile is an intrusion detection mechanism based on deception. This mechanism works by creating a bait file that when accessed set off an alarm or log the access to the document. In this way you can detect unauthorized access to a computer. This is a very simple technique, but it is also very effective. Usually, in many organizations important information gets stored in office documents. So, when an attacker compromises a machine, he often checks for valuable documents.
 
-When “setting up” a honeyfile you have to think about what the attacker is interested in. Usually they search for four things:
+When “setting up” a honeyfile you have to think about what the attacker is interested in. Usually they search for four types of files \cite{deceptive_files}:
 \begin{enumerate}
 \itemsep0em 
 \item Information for accessing other systems (e.g., passwords, network details) or security documentation
@@ -417,7 +556,36 @@ Then you have to think what the attacker will see, so:
 
 \noindent NB: Do not exaggerate by placing to many honeyfiles, because it will also increase the chance of triggering false positives by legitimate users. And also do not try to hard with the naming conventions otherwise the attacker will become suspicious.
 
-\section{How to create a honeydoc}
+\section{Honeydoc}
+A honeydoc is a  particular type of honeyfile. In particular is an office document that contains a token used for tracking purpose (called web bug or web beacon). This token  references a resource from an external URL. In this way when the document is opened, the external resource will be requested and the server serving this resource will log the interaction. In the next exercise we will hide this web bug by shrinking it in a 1x1  pixel image.
+
+\section{Create a LibreOffice honeydoc}
+
+For this laboratory exercise there is already a Nginx server running that serve an image that you can use as web bug. The page is accessible by opening Firefox on the virtual machine and opening the page at the URL \texttt{localhost:8080}.
+It is also possible to access to the Nginx instance to see its logs. Just open a terminal and execute the commands:
+\begin{lstlisting}[language=bash]
+$ docker exec -it honeydocserver /bin/bash
+$ tail -f /var/log/nginx/access.log 
+\end{lstlisting}
+
+Now you can create the honeydoc. First open LibreOffice and create a new document. Then follow these steps:
+\begin{enumerate}
+\itemsep0em
+\item Create a footer by clicking at the bottom of the page. By placing the web bug there is harder that is accidentally found or  deleted
+\item Click on the Insert tab. Then insert an image. Now select just a temporary image  and then select the box "Insert as a link".
+\item LibreOffice will ask if you really want to include a link. You have choose "Keep link"
+\item Now right click on the image. And click on properties.
+\item In the first tab resize the image as small as possible (0.2")
+\item In the "option" tab check the protect content, position and size boxes.
+\item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these step the image should be hard to spot. To be still visible we choose a black image but by using a white or transparent image it will be very difficult to detect.
+\item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt) 
+\end{enumerate}
+
+Now, every time we open the document, Office will attempt to load the image from the URL, thus generating requests to our web server that will log the interaction.
+
+
+\section{Another way to create honeytokens}
+An easy way to generate honeytoken without repeating the above procedure is provided by Thinkst with their service called Canary Tokens. You can access it by going to the website \url{https://canarytokens.org}. You will need to just specify the type of token, an email address where to receive the alerts and a reminder note for when the token is triggered. Then you can download the honeytoken document and place it where it is needed.
 
 
 \chapter{Lab monitoring infrastructure}
@@ -436,7 +604,31 @@ To implement our logging infrastructure we used the Elastic Stack (also known as
 \item \textbf{Kibana}: is a web-based dashboard that is used to visualize the data present in Elasticsearch. It allows you to create real-time histograms, pie charts and maps
 \end{enumerate}
 
+\section{Exercise - Create simple dashboards in Kibana}
+
+Now that we have multiple honeypot running that generated multiple events we can log into Kibana so see the logs from a central location.
+
+To do that, open Firefox and go to the URL \texttt{http://localhost:5601} and login with username: \texttt{netsec} and password: \texttt{password}.
+
+After logging in, open the menu on the left side of the screen and click on Recently viewed -> raw logs. In this page you should be able to see all the logs received and stored in the elastic search database. You can use the search bar to filter for specific values and modify the time frame of the logs that are shown by specifying a time interval in the input on the right of the search bar.
+
+To create a dashboard click on the menu 
+
+
+
 \chapter{Honeypots for IoT}
+
+\section{SIPHON}
+
+\section{HIoTPOT}
+
+\section{IoTPOT}
+
+\section{ThingPot}
+
+\section{Honware}
+
+
 \endgroup
 
 
