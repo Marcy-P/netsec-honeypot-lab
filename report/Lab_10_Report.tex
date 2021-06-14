@@ -168,13 +168,8 @@ In particular, you can ask yourself the following questions:
 
 When attackers obtain access to one of your system, usually, they do not stop there. They will try to expand their control over other systems. For example, they could use network scanners, check for shared folders, or listen to the network in a passive way.
 \item What assets will they be interested in?
-<<<<<<< Updated upstream
 
-If you have important confidential data (e.g. intellectual property) in your organization an attacker may want to steal them. You should place the honeypot near these assets to detected the attack before it happens. 
-=======
 If you have important confidential data (e.g. intellectual property) in your organization an attacker may want to steal them. You should place the honeypot near these assets to detected the attack before it happens.
->>>>>>> Stashed changes
-\end{itemize}
 
 To increase discoverability, you might also place \textbf{breadcrumbs} in systems that might be compromised. They are data that will lead the attacker to your honeypot while the attacker is gathering information needed to do lateral movement in the network. An example of breadcrumbs is a clear text document containing an URL or IP of a honeypot and some credential or SSH private keys.
 
@@ -194,16 +189,9 @@ Finally, honeypots have to be monitored. This means that every notable interacti
 
 To manage all the events generated in an environment with multiple honeypots, you have to build a \textbf{logging and monitoring infrastructure} that stores the logs and alerts the analyst of the presence of an attack. The process of shipping logs from the honeypot to the monitoring server usually happens in four phases:
 \begin{enumerate}
-<<<<<<< Updated upstream
 \item \textbf{Source}: the data is generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
-\item \textbf{Egress}: the data is transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed. 
+\item \textbf{Egress}: the data is transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed.
 NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker intercept the logs, it will know that a system is a honeypot without ever interacting with it.
-=======
-\item \textbf{Source}: the data are generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
-\item \textbf{Egress}: the data are transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed.
-NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker can intercept the logs, it can know that a system is a honeypot without never interacting with it.
->>>>>>> Stashed changes
-
 \item	\textbf{Ingress}: the data is received. There should be a component that receives logs and parses them in a format compatible with the destination. In this phase, it is also important to do additional filtering because  some honeypots are very noisy. You may want to filter out interactions that are not important or interaction from components of the network that may interact with the honeypot (e.g., scanners)
 \item \textbf{Destination}: The data is stored in the destination inside a database.  You can also implement a dashboard to see them. This component must be protected because like already said these logs are sensitive data. You may also want a system to backup important logs.
 \end{enumerate}
@@ -219,11 +207,7 @@ Honeypots can be classified on the basis of different characteristics. The two m
 Honeypots are classified by their degree of interaction with the communication destination (attacker) as a low interaction, medium interaction or  high interaction type. However, this does not mean that one type is better than the others. These terms are used in different ways depending on implementation, usage and purpose.
 
 \begin{itemize}
-<<<<<<< Updated upstream
-\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using an emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot. 
-=======
-\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot.
->>>>>>> Stashed changes
+\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using an emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot.
 
 \item \textit{High interaction}: high interaction honeypots allow the attackers to interact with real systems and do not assume anything about the possible behavior of the attacker. They help the administrator to investigate the complete activities of the attackers, utilizing the operating systems (e.g. Linux) and applications (e.g. FTP) without using the emulation software (e.g. Dionaea) to record the activities of attackers. In most cases, attackers are unable to recognize the honeypot because it behaves similarly to the actual target host. However, these systems require more resources and are difficult to set up and maintain; also the possibility of infection from the malware or hacking by the attacker is higher than for the low interaction type honeypot. Therefore, the system should be monitored properly, and it is necessary to be prepared to restore the system to the state before the infection of malware.
 
@@ -595,13 +579,8 @@ Now you can create the honeydoc. First, open LibreOffice and create a new docume
 \item Now right-click on the image. And click on properties.
 \item In the first tab resize the image as small as possible (0.2")
 \item In the "option" tab check the protect content, position and size boxes.
-<<<<<<< Updated upstream
 \item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To still be able to see it we choose a black image but by using a white or transparent image it will be very difficult to detect.
-\item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt) 
-=======
-\item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To be still visible we choose a black image but by using a white or transparent image it will be very difficult to detect.
 \item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt)
->>>>>>> Stashed changes
 \end{enumerate}
 
 Now every time we open the document, Office will attempt to load the image from the URL, thus generating requests to our web server that will log the interaction.
