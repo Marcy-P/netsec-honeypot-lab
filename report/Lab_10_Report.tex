@@ -26,28 +26,28 @@
     \centerline{\psfig{file=marchio_unitrento_colore_it_202002.eps,width=0.6\textwidth}}
   \end{figure}
 
-  \vspace{2 cm} 
+  \vspace{2 cm}
 
   \LARGE{Department of Information Engineering and Computer Science\\}
 
-  \vspace{1 cm} 
+  \vspace{1 cm}
   \Large{NETWORK SECURITY\\LABORATORY REPORT}
 
-  \vspace{2 cm} 
-  \vspace{1 cm} 
+  \vspace{2 cm}
+  \vspace{1 cm}
   \Huge\textsc{LAB 10\\HONEYPOT}
 
 
-  \vspace{2 cm} 
+  \vspace{2 cm}
   \begin{tabular*}{\textwidth}{ c @{\extracolsep{\fill}} c }
   \Large{Da Rold Giovanni}& \Large{Meschini Marcello}\\
   \Large{224291}& \Large{220222}\\
   \end{tabular*}
 
-  \vspace{2 cm} 
+  \vspace{2 cm}
 
   \Large{Academic year 2020/2021}
-  
+
 \end{center}
 \clearpage
 
@@ -56,18 +56,18 @@
 % indice
 \tableofcontents
 \clearpage
-    
-    
-          
+
+
+
 % gruppo per definizone di successione capitoli senza interruzione di pagina
 \begingroup
 % nessuna interruzione di pagina tra capitoli
 % ridefinizione dei comandi di clear page
-\renewcommand{\cleardoublepage}{} 
-\renewcommand{\clearpage}{} 
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
 \titleformat{\chapter}
   {\normalfont\huge\bfseries}{\thechapter}{1em}{}
-  
+
 \titlespacing*{\chapter}{0pt}{0.30in}{0.02in}
 \titlespacing*{\section}{0pt}{0.20in}{0.02in}
 \titlespacing*{\subsection}{0pt}{0.10in}{0.02in}
@@ -79,7 +79,7 @@
 \section*{Requirements}
 
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item Docker Engine version 17.05 or newer
 \item Docker Compose version 1.20.0 or newer
 \item 2 GB of RAM
@@ -91,7 +91,7 @@ To create a network for the laboratory we used Docker Compose and created the fo
 \begin{center}
 \includegraphics[scale=0.35]{topology}
 \end{center}
-The docker-compose.yaml file containing the definition for the containers can be found in the netsec-honeypot-lab folder on the desktop or in our Github public repository: 
+The docker-compose.yaml file containing the definition for the containers can be found in the netsec-honeypot-lab folder on the desktop or in our Github public repository:
 
 \url{https://github.com/Marcy-P/netsec-honeypot-lab}
 
@@ -138,7 +138,7 @@ There are various frameworks that try to classify various deception strategies, 
 Honeypots are meant to be reachable, so you do not hide them entirely, but you often have to hide specific features to make them less suspicious.
 The techniques to hide the real are:
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item \textbf{Masking}: hide the  real by making relevant objects be undetectable or blend into the background;
 \item \textbf{Repackaging}: hide the  real by making it appear like it is something different;
 \item \textbf{Dazzling}: hide the real by altering an object to confuse the adversary;
@@ -146,12 +146,12 @@ The techniques to hide the real are:
 
 The techniques to show the false are:
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item \textbf{Mimicking}: show the false by using characteristics present in the actual real object;
-\item \textbf{Inventing}: show the false by giving the perception that a relevant object exist while it does not; 
+\item \textbf{Inventing}: show the false by giving the perception that a relevant object exist while it does not;
 \item \textbf{Decoying}: show the false by misdirecting and attracting the attacker attention away from real objects.
 \end{itemize}
-Note that not every honeypot has to strictly follow these techniques. It is just a theoretical framework that you may want to use when creating and deploying a honeypot. 
+Note that not every honeypot has to strictly follow these techniques. It is just a theoretical framework that you may want to use when creating and deploying a honeypot.
 A more in depth analysis of the usage of deception for cyber defense can be found in the following paper "Deception used for Cyber Defense of  Control Systems" \cite{deception_defense}.
 
 \section{Discoverability}
@@ -168,8 +168,12 @@ In particular, you can ask yourself the following questions:
 
 When attackers obtain access to one of your system, usually, they do not stop there. They will try to expand their control over other systems. For example, they could use network scanners, check for shared folders, or listen to the network in a passive way.
 \item What assets will they be interested in?
+<<<<<<< Updated upstream
 
 If you have important confidential data (e.g. intellectual property) in your organization an attacker may want to steal them. You should place the honeypot near these assets to detected the attack before it happens. 
+=======
+If you have important confidential data (e.g. intellectual property) in your organization an attacker may want to steal them. You should place the honeypot near these assets to detected the attack before it happens.
+>>>>>>> Stashed changes
 \end{itemize}
 
 To increase discoverability, you might also place \textbf{breadcrumbs} in systems that might be compromised. They are data that will lead the attacker to your honeypot while the attacker is gathering information needed to do lateral movement in the network. An example of breadcrumbs is a clear text document containing an URL or IP of a honeypot and some credential or SSH private keys.
@@ -190,9 +194,15 @@ Finally, honeypots have to be monitored. This means that every notable interacti
 
 To manage all the events generated in an environment with multiple honeypots, you have to build a \textbf{logging and monitoring infrastructure} that stores the logs and alerts the analyst of the presence of an attack. The process of shipping logs from the honeypot to the monitoring server usually happens in four phases:
 \begin{enumerate}
+<<<<<<< Updated upstream
 \item \textbf{Source}: the data is generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
 \item \textbf{Egress}: the data is transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed. 
 NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker intercept the logs, it will know that a system is a honeypot without ever interacting with it.
+=======
+\item \textbf{Source}: the data are generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
+\item \textbf{Egress}: the data are transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed.
+NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker can intercept the logs, it can know that a system is a honeypot without never interacting with it.
+>>>>>>> Stashed changes
 
 \item	\textbf{Ingress}: the data is received. There should be a component that receives logs and parses them in a format compatible with the destination. In this phase, it is also important to do additional filtering because  some honeypots are very noisy. You may want to filter out interactions that are not important or interaction from components of the network that may interact with the honeypot (e.g., scanners)
 \item \textbf{Destination}: The data is stored in the destination inside a database.  You can also implement a dashboard to see them. This component must be protected because like already said these logs are sensitive data. You may also want a system to backup important logs.
@@ -209,21 +219,25 @@ Honeypots can be classified on the basis of different characteristics. The two m
 Honeypots are classified by their degree of interaction with the communication destination (attacker) as a low interaction, medium interaction or  high interaction type. However, this does not mean that one type is better than the others. These terms are used in different ways depending on implementation, usage and purpose.
 
 \begin{itemize}
+<<<<<<< Updated upstream
 \item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using an emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot. 
+=======
+\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot.
+>>>>>>> Stashed changes
 
 \item \textit{High interaction}: high interaction honeypots allow the attackers to interact with real systems and do not assume anything about the possible behavior of the attacker. They help the administrator to investigate the complete activities of the attackers, utilizing the operating systems (e.g. Linux) and applications (e.g. FTP) without using the emulation software (e.g. Dionaea) to record the activities of attackers. In most cases, attackers are unable to recognize the honeypot because it behaves similarly to the actual target host. However, these systems require more resources and are difficult to set up and maintain; also the possibility of infection from the malware or hacking by the attacker is higher than for the low interaction type honeypot. Therefore, the system should be monitored properly, and it is necessary to be prepared to restore the system to the state before the infection of malware.
 
-\item \textit{Medium interaction}: medium-interaction honeypots are a combination of low-interaction and high-interaction honeypots, capable of emulating full services or specific vulnerabilities. Similar to low-interaction honeypots, their primary purpose is detection and are installed as an application on the host operating system with only the emulated services being presented to the public. The key feature of a medium-interaction honeypot is application layer virtualization. They do not aim at simulating an operational system environment, nor do they implement all details of an application protocol. They provide sufficient responses that known exploits waiting on certain ports are going to be tricked into sending their payload. Once this payload has been received, the shellcode can be extracted and analyzed. After that, the honeypot emulates the actions that the shellcode would take to download the malware.
- 
+\item \textit{Medium interaction}: medium-interaction honeypots are a combination of low-interaction and high-interaction honeypots, capable of emulating full services or specific vulnerabilities. Similar to low-interaction honeypots, their primary purpose is detection and are installed as an application on the host operating system with only the emulated services being presented to the public. The key feature of a medium-interaction honeypot is application layer virtualization. They do not aim at simulating an operational system environment, nor do they implement all details of an application protocol. They offer enough answers to deceive known exploits waiting on specific ports into transmitting their payload. Once this payload has been received, the shellcode can be extracted and analyzed. After that, the honeypot emulates the actions that the shellcode would take to download the malware.
+
 \end{itemize}
 
 \section{Based on the goal}
 
 \begin{itemize}
-\item \textit{Research honeypots}: these are deployed by various security researchers to assess cyber threats, study the real motivation behind the attacks and capture various zero-day exploits. They help in gathering information about attacks and what kind of hacking (attacking) techniques are being used by the attackers. Various logging tools are used to log each and every activity happening on the honeypot, which can really help researchers to study the various advanced methodologies used by an attacker. They mainly consist of high interaction honeypots that are complex to deploy and maintain.
+\item \textit{Research honeypots}: these are deployed by various security researchers to assess cyber threats, study the real motivation behind the attacks and capture various zero-day exploits. They help in gathering information about attacks and what kind of hacking (attacking) techniques are being used by the attackers. Different logging tools are utilized to record every action on the honeypot, which may greatly aid researchers in studying the various advanced tactics employed by an attacker. They mainly consist of high interaction honeypots that are complex to deploy and maintain.
 
 
-\item \textit{Production honeypots}: these are deployed by organizations to mitigate threats and protect themselves from various attacks. They require fewer resources and can be easily deployed. Production honeypots are often placed near security assets, in order to alert defenders of an attack; they are cheap and usually belong to the low interaction type. Use of low interaction type includes port scan identification, generation of attack signatures, trend analysis and malware collection. On the other hand, this is also a disadvantage, indeed it is not possible to watch how an attacker interacts with the operating system as all the services are emulated.
+\item \textit{Production honeypots}: these are deployed by organizations to mitigate threats and protect themselves from various attacks. They require fewer resources and can be easily deployed. Production honeypots are often placed near security assets, in order to alert defenders of an attack; they are cheap and usually belong to the low interaction type. On the other hand, this is also a disadvantage, indeed it is not possible to watch how an attacker interacts with the operating system as all the services are emulated. Port scan identification, attack signature generation, trend analysis, and malware capturing are some examples of tasks performed by these honeypots.
 
 
 \end{itemize}
@@ -244,10 +258,10 @@ As a third advantage, they produce a small number of logs with few false positiv
 Cowrie is an open-source medium interaction SSH, and Telnet honeypot designed to log brute force attacks and the shell interaction performed by the attacker \cite{whatcowrie}.
 It can run in two modes:
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item In Medium interaction mode (shell) it emulates a UNIX system. To do so it provides:
 	\begin{itemize}
-	\itemsep0em 
+	\itemsep0em
 	\item An authentication mechanism via SSH
 	\item A  post authentication shell
 	\item The ability to create a fake file system with files that attacker can cat
@@ -290,7 +304,7 @@ $ ssh root@10.0.0.10 -p2222
 Once you are logged in inside the honeypot, play a bit in it and list some strange behaviours you encountered that suggest you that the system is a honeypot.
 Things to keep in mind:
 \begin{enumerate}
-\itemsep0em 
+\itemsep0em
 \item With the default configuration there is a time-out that will log you out every two minutes
 \item While inside the honeypot don't worry about breaking things.
 \item If you get stuck for some reason type in the Cowrie terminal: \$ cowrie stop and then start it again.
@@ -299,14 +313,14 @@ Things to keep in mind:
 \section{Brief exercise - Solution}
 Here a list of behaviours you may have encountered:
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item If you type the command:
 	\begin{lstlisting}[language=bash]
 $ uname -v
 	\end{lstlisting}
 	You get that the system is a Debian Linux distribution. So you may want to try to install some software. For example by typing:
 	\begin{lstlisting}[language=bash]
-$ apt-get install ftp 
+$ apt-get install ftp
 	\end{lstlisting}
 	But after the installation screen every time you try to execute the newly installed command you will get the error \texttt{SEGMENTATION FAULT}.
 \item When you try to \texttt{cat} some files they seem to exist but you will get the error "\texttt{No such file or directory}"
@@ -366,7 +380,7 @@ Cowrie allows you to create a list of fake processes that will be printed with t
 \subsection{Modifying the file system}
 Cowrie provides an emulated file system so when an attacker logins, it will get its own personal copy of this filesystem that will be deleted when they log off. This file system is implemented into two components:
 \begin{itemize}
-\itemsep0em 
+\itemsep0em
 \item \textbf{pickle file}: contains metadata for the files (their name, size, permission, directory, …)
 \item \textbf{honeyfs directory}: contains the file contents
 \end{itemize}
@@ -411,7 +425,7 @@ Dionaea, like any software, is likely to contain bugs that may be exploited. In 
 
 In addition, this honeypot has the following features:
 \begin{enumerate}
-\itemsep0em 
+\itemsep0em
 \item It is composed of a modular architecture, embedding Python as its scripting language in order to emulate protocols;
 \item It supports IPv6 and TLS (Transport Layer Security);
 \item It can obtain a detailed analysis of captured malwares, by sending them automatically to the VirusTotal platform.
@@ -419,7 +433,7 @@ In addition, this honeypot has the following features:
 
 \subsection{Exploitation}
 
-Dionaea has to detect and evaluate the payload to be able to gain a copy of the malware. In order to do so, Dionaea uses libemu. Given certain circumstances, libemu can detect shellcode, measure the shellcode, and if required even execute the shellcode.
+Dionaea has to detect and evaluate the payload to be able to gain a copy of the malware. In order to do so, Dionaea uses libemu. Given certain circumstances, libemu can detect shellcode, measure the shellcode, and if required even execute the shellcode \cite{dionaea}.
 
 Shellcode measurement/profiling is realized by executing the shellcode in the libemu virtual machine and recording API calls and arguments. In most of the cases shellcode profiling is sufficient, since the recorded API calls and arguments reveal enough information to get an idea of the attackers intentions. For multi-stage shellcode, where the first exploitation stage of the shellcode would retrieve a second shellcode from the attacker, profiling is not sufficient, as we don’t know what will happen from the second stage of the shellcode. In this case we need to make use of shellcode execution: this is basically the same as shellcode profiling, the only difference is that API calls are not recorded, and also the shellcode is allowed to perform certain actions.
 
@@ -429,9 +443,9 @@ After the shellcode profiling has been done, Dionaea has to guess the intention,
 
 Dionaea offers a logging system which logs all the activities in a clear text file, which can be used for analysis and attack prediction. However, this type of logging to a text file is very chatty, and you do not want to use it unless for debugging or development purposes.
 
-In addition to that, Dionaea uses some internal communication system which is called incidents. Incidents, containing information about the origin and properties of an “attack”, are passed using incident handlers (ihandlers). An ihandler can register a path for incidents he wants to get informed about, and  the paths are matched in a glob like fashion. Therefore logging information using an ihandler is superior to text logging, because you get the information you are looking for, and can write it to a format you choose yourself; in other words, it’s a more scalable solution.
+In addition to that, Dionaea uses some internal communication system which is called incidents. Incident handlers (ihandlers) are used to transmit incidents, which contain information about the origin and characteristics of an "attack". An ihandler can register a path for incidents he wants to get informed about, and  the paths are matched in a glob like fashion. Therefore logging information using an ihandler is superior to text logging, because you get the information you are looking for, and can write it to a format you choose yourself; in other words, it’s a more scalable solution.
 
-The most useful ihandler is the \texttt{log\_sqlite}, which writes interesting incidents to a sqlite database. One of the benefits of this logging is the ability to cluster incidents based on the initial attack when retrieving the data from the database; another interesting one is the \texttt{log\_json} ihandler, which permits to save the logs in JSON format. JSON logs can then be used, for example, to configure Dionaea to work with ELK stack.
+The most useful ihandler is the \texttt{log\_sqlite}, which writes interesting incidents to a sqlite database. In particular, this ihandler is very interesting because it has the capacity to cluster incidents based on the initial attack when getting the data from the database; another interesting one is the \texttt{log\_json} ihandler, which permits to save the logs in JSON format. JSON logs can then be used, for example, to configure Dionaea to work with ELK stack.
 
 Dionaea can also dump a connection as a bi-directional stream. These bi-directional streams are pretty useful when debugging, as they allow replaying an attack on ip-level. You can specify the directory where these are stored in the configuration file. Default is storing them in the directory \texttt{/opt/dionaea/var/lib/dionaea/bistreams}.
 
@@ -467,7 +481,7 @@ In the Dionaea directory you can find different folders: those of greatest inter
 
 You can see that there is also a python script named \texttt{readlogsqltree.py}: this is a python3 script which queries the Dionaea sqlite database for attacks, and prints out all related information for every attack; this tool provides information about the exploited vulnerability, the time, the attacker, information about the shellcode, and the file offered for download (if any). To create such report for your own honeypots activities for the last 24 hours run:
 \begin{lstlisting}[language=bash]
-$ python3 readlogsqltree.py -t $(date '+%s')-24*3600 
+$ python3 readlogsqltree.py -t $(date '+%s')-24*3600
 /opt/dionaea/var/lib/dionaea/dionaea.sqlite
 \end{lstlisting}
 At the moment no connections are printed, because there are not any yet.
@@ -538,7 +552,7 @@ A honeyfile is an intrusion detection mechanism based on deception. This mechani
 
 When “setting up” a honeyfile you have to think about what the attacker is interested in. Usually, they search for four types of files \cite{deceptive_files}:
 \begin{enumerate}
-\itemsep0em 
+\itemsep0em
 \item Information for accessing other systems (e.g., passwords, network details) or security documentation
 \item File containing important information like intellectual property, customer lists, product design
 \item File containing personal information that could be  used to harm the reputation or allow a further compromise of the system
@@ -569,7 +583,7 @@ For this laboratory exercise there is already an Nginx server running that serve
 It is also possible to access the Nginx instance to see its logs. Just open a terminal and execute the commands:
 \begin{lstlisting}[language=bash]
 $ docker exec -it honeydocserver /bin/bash
-$ tail -f /var/log/nginx/access.log 
+$ tail -f /var/log/nginx/access.log
 \end{lstlisting}
 
 Now you can create the honeydoc. First, open LibreOffice and create a new document. Then follow these steps:
@@ -581,8 +595,13 @@ Now you can create the honeydoc. First, open LibreOffice and create a new docume
 \item Now right-click on the image. And click on properties.
 \item In the first tab resize the image as small as possible (0.2")
 \item In the "option" tab check the protect content, position and size boxes.
+<<<<<<< Updated upstream
 \item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To still be able to see it we choose a black image but by using a white or transparent image it will be very difficult to detect.
 \item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt) 
+=======
+\item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To be still visible we choose a black image but by using a white or transparent image it will be very difficult to detect.
+\item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt)
+>>>>>>> Stashed changes
 \end{enumerate}
 
 Now every time we open the document, Office will attempt to load the image from the URL, thus generating requests to our web server that will log the interaction.
@@ -604,7 +623,7 @@ To implement our logging infrastructure we used the Elastic Stack (also known as
 	\item Heartbeat: to ship data regarding uptime monitoring
 	\end{itemize}
 \item \textbf{Logstash}: assumes the role of the ingress. It receives data from the various Filebeats, parse and filter them. Then sends its output (that is in JSON format) to Elasticsearch. NB: It is very powerful because you can use it to structure unstructured data and enrich them with new information (for example geo coordinates based on the IP address inside a log).
-\item \textbf{Elasticsearch}: it is the destination of the data. It receives the data from Logstash, stores them  in a database, and indexes them. This process allows to run queries on the data and aggregate them into useful information. 
+\item \textbf{Elasticsearch}: it is the destination of the data. It receives the data from Logstash, stores them  in a database, and indexes them. This process allows to run queries on the data and aggregate them into useful information.
 \item \textbf{Kibana}: is a web-based dashboard that is used to visualize the data present in Elasticsearch. It allows you to create real-time histograms, pie charts and maps
 \end{enumerate}
 
@@ -631,7 +650,7 @@ Below are reported some recent IoT honeypots that have been developed in order t
 
 \section{SIPHON}
 
-SIPHON is a prototype of a scalable and reliable high interaction honeypot with the aim to learn about existing and novel attack vendors, be it human or automatic, targeting IoT devices. By constructing tunnels between public IP addresses and physical devices utilizing the entrypoint (wormhole), SIPHON enables the portrayal of physical IoT devices in a broad variety of geographic locations. The traffic data is gathered in order to be processed and analyzed further. The figure below represents the SIPHON architecture with IP cameras and a networked video recorder (NVR) linked to three different cloud servers. \cite{guarnizo2017siphon}
+SIPHON is a prototype of a scalable and reliable high interaction honeypot with the aim to learn about existing and novel attack vendors, be it human or automatic, targeting IoT devices. By constructing tunnels between public IP addresses and physical devices utilizing the entrypoint (wormhole), SIPHON enables the portrayal of physical IoT devices in a broad variety of geographic locations. The traffic data is gathered in order to be processed and analyzed further. The figure below represents the SIPHON architecture with IP cameras and a networked video recorder (NVR) linked to three different cloud servers \cite{guarnizo2017siphon}.
 \begin{center}
 \includegraphics[scale=0.25]{SIPHON}
 \end{center}
@@ -648,9 +667,9 @@ IoTPOT is a medium-interaction honeypot which emulates Telnet services of IoT de
 \end{center}
 
 \section{ThingPot}
-ThingPot is a honeypot implementation of XMPP protocol (XMPP is a communication protocol that provides basic instant messaging (IM) and presence functionality) which focuses on the use case of Philips Hue (Philips Hue consists of wireless LED light bulbs and a wireless bridge). 
+ThingPot is a honeypot implementation of XMPP protocol (XMPP is a communication protocol that provides basic instant messaging (IM) and presence functionality) which focuses on the use case of Philips Hue (Philips Hue consists of wireless LED light bulbs and a wireless bridge).
 
-It can simulate an entire IoT platform rather than a single application layer communication. Additionally, the ThingPot’s source code is open to the public and is available online at Github; this includes two modules: client and server. To reduce the chances of an attacker gaining access to the real system, the ThingPot runs in an isolated simulated environment.. REST is used to build a backend API. Given its popularity, XMPP has been selected as the IoT protocol for real-time communication. The frontend is realized through a simple HTTP web service \cite{wang2018thingpot}.
+It can simulate an entire IoT platform rather than a single application layer communication. Additionally, the ThingPot’s source code is open to the public and is available online at Github; this includes two modules: client and server. To reduce the chances of an attacker gaining access to the real system, the ThingPot runs in an isolated simulated environment.. REST is used to build a backend API. Given its popularity, XMPP has been selected as the IoT protocol for real-time communication. A basic HTTP web service is used to implement the frontend. \cite{wang2018thingpot}.
 \begin{center}
 \includegraphics[scale=0.40]{thingpot}
 \end{center}
@@ -658,10 +677,9 @@ It can simulate an entire IoT platform rather than a single application layer co
 
 \section{Honware}
 
-As discussed in \cite{Honware}, this is the first flexible and generic framework to efficiently and effectively deploy honeypots for networked devices on the Internet to log attacker traffic and their actions. 
-Honware utilises device firmware images (which are widely available for download) and a special prebuilt Linux kernel to emulate device behaviour within a virtual environment (so it doesn’t utilise real devices);
-The performance of honware is comparable to real devices and is not susceptible to trivial fingerprinting based on timing attacks;
-Using firmware images is cheaper and therefore more scalable.
+As discussed in \cite{Honware}, this is the first flexible and generic framework to efficiently and effectively deploy honeypots for networked devices on the Internet to log attacker traffic and their actions.
+Instead of using real devices, honware utilises device firmware images (which are largely available for download) and a special prebuilt Linux kernel to emulate device behaviour within a virtual environment.
+The performance of honware is equivalent to that of actual devices, and it is also immune to trivial timing-based fingerprinting attacks. Furthermore using firmware images is cheaper and therefore more scalable.
 Below is represented the honware architecture overview.
 \begin{center}
 \includegraphics[scale=0.25]{honware}
