@@ -617,18 +617,47 @@ To create a dashboard click on the menu
 
 
 \chapter{Honeypots for IoT}
+The tremendous growth in the interconnection of Internet of Things (IoT) devices has also increased the possibility of data breach. Thus, there is a need to protect the connected devices or a system from disclosure or network-based attack. Recent Distributed Denial of Service (DDoS) attacks which used inadequately secured IoT devices, further highlight that existing defenses are slow to detect zero day exploits and capture attack traffic. So here’s the necessity for countermeasures and honeypots have long proven effective in capturing malware, helping to counter spam and providing early warning signals about upcoming threats \cite{review}.
+
+Below are reported some recent IoT honeypots that have been developed in order to face this security problem.
 
 \section{SIPHON}
 
+SIPHON is a prototype of a scalable and reliable high interaction honeypot with the aim to learn about existing and novel attack vendors, be it human or automatic, targeting IoT devices. By constructing tunnels between public IP addresses and physical devices utilizing the entrypoint (wormhole), SIPHON enables the portrayal of physical IoT devices in a broad variety of geographic locations. The traffic data is gathered in order to be processed and analyzed further. The figure below represents the SIPHON architecture with IP cameras and a networked video recorder (NVR) linked to three different cloud servers. \cite{guarnizo2017siphon}
+\begin{center}
+\includegraphics[scale=0.25]{SIPHON}
+\end{center}
+
 \section{HIoTPOT}
+
+HIoTPoT functions as a camouflaged monitoring camera on the attackers, diverting them from their goals by keeping them busy in a fake environment.. It will gather any important information about the attackers. When it notices an attacker, HIoTPoT sends out notifications to all nearby IoT devices in the network, telling them not to communicate with that attacker, and so keeping the active environment secure.. HIoTPoT can act as a production honeypot as well as a research honeypot. The HIoTPOT will maintain a database for all authenticated users. Whenever a user connects to the IoT network, HIoTPOT will check that user against the database. If it finds the user in the database, then it will permit the user to enter in the real IoT environment. If it does not find the user in the database, then it will send the user to a fake IoT environment which is only an image of the real IoT environment. The intruder then believes he has gained access to the IoT infrastructure and begins interacting with IoT devices. At the same time the HIoTPOT will keep one database that will record all the intruder's communications information \cite{gandhi}.
 
 \section{IoTPOT}
 
+IoTPOT is a medium-interaction honeypot which emulates Telnet services of IoT devices to analyze ongoing attacks. IoTPOT has a function that automatically exeutes an active scanning of the attacking IP addresses to obtain their banner profiles. IoTPOT design is composed of a front-end low-interaction responder and back-end high-interaction virtual environment called IoTBOX which works as a malware sandbox. This IoTBOX manages various virtual environments and supports different CPU architectures \cite{IoTPOT}.
+\begin{center}
+\includegraphics[scale=0.35]{iotpot}
+\end{center}
+
 \section{ThingPot}
+ThingPot is a honeypot implementation of XMPP protocol (XMPP is a communication protocol that provides basic instant messaging (IM) and presence functionality) which focuses on the use case of Philips Hue (Philips Hue consists of wireless LED light bulbs and a wireless bridge). 
+
+It can simulate an entire IoT platform rather than a single application layer communication. Additionally, the ThingPot’s source code is open to the public and is available online at Github; this includes two modules: client and server. To reduce the chances of an attacker gaining access to the real system, the ThingPot runs in an isolated simulated environment.. REST is used to build a backend API. Given its popularity, XMPP has been selected as the IoT protocol for real-time communication. The frontend is realized through a simple HTTP web service \cite{wang2018thingpot}.
+\begin{center}
+\includegraphics[scale=0.40]{thingpot}
+\end{center}
+
 
 \section{Honware}
 
-
+As discussed in \cite{Honware}, this is the first flexible and generic framework to efficiently and effectively deploy honeypots for networked devices on the Internet to log attacker traffic and their actions. 
+Honware utilises device firmware images (which are widely available for download) and a special prebuilt Linux kernel to emulate device behaviour within a virtual environment (so it doesn’t utilise real devices);
+The performance of honware is comparable to real devices and is not susceptible to trivial fingerprinting based on timing attacks;
+Using firmware images is cheaper and therefore more scalable.
+Below is represented the honware architecture overview.
+\begin{center}
+\includegraphics[scale=0.25]{honware}
+\end{center}
 \endgroup
 
 
