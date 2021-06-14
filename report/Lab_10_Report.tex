@@ -89,16 +89,16 @@
 \section*{Network Topology}
 To create a network for the laboratory we used Docker Compose and created the following topology:
 \begin{center}
-\includegraphics[scale=0.25]{topology}
+\includegraphics[scale=0.35]{topology}
 \end{center}
 The docker-compose.yaml file containing the definition for the containers can be found in the netsec-honeypot-lab folder on the desktop or in our Github public repository: 
 
 \url{https://github.com/Marcy-P/netsec-honeypot-lab}
 
-\noindent The repository README also contains additional info for accessing the containers and the references to some Docker images we used.
+\noindent The repository README also contains additional information for accessing the containers and the references to some Docker images we used.
 
 \section*{Starting up the lab}
-To start the laboratory login into the VM with the credentials: username: \textit{netsec} and password: \textit{password}. Then open a terminal in the folder \textbackslash netsec-honeypot-lab on the desktop and type the following command:
+To start the laboratory login into the VM with the credentials: username: \textit{netsec} and password: \textit{password}. Then open a terminal in the folder \texttt{\textbackslash netsec-honeypot-lab} on the desktop and type the following command:
 
 \begin{lstlisting}[language=bash]
 $ ./start.sh
@@ -131,9 +131,9 @@ Honeypots have four main characteristics; they have to be: \textbf{Deceptive} , 
 
 \section{Deception}
 
-Deception can be defined as an advantageous distortion of an adversary's perceptions of reality. Honeypots heavily use this concept as a tool because they appear as real systems, but they do not serve any functional purpose for a business.
+Deception can be defined as an advantageous distortion of an adversary's perception of reality. Honeypots heavily use this concept as a tool because they appear as real systems, but they do not serve any functional purpose for a business.
 
-There are various frameworks that try to classify various deception strategies, and we considered the taxonomy proposed by Bell and Whaley \cite{Whaley}. According to this model deception consists of two main parts: hiding the real (dissimulation) and showing the false (simulation).
+There are various frameworks that try to classify various deception strategies, and we considered the taxonomy proposed by Bell and Whaley \cite{Whaley}. According to this model deception consists of two main parts: hiding the real (\textit{dissimulation}) and showing the false (\textit{simulation}).
 
 Honeypots are meant to be reachable, so you do not hide them entirely, but you often have to hide specific features to make them less suspicious.
 The techniques to hide the real are:
@@ -164,9 +164,11 @@ In particular, you can ask yourself the following questions:
 	\item Vulnerable services exposed to the internet
 	\item Stolen VPN credentials
 	\end{itemize}
-\item What tool will they use to discover your asset?
-When an attackers obtain access to one of your system usually, they do not stop there. They will try to expand their control over other system. For example, they could use network scanner, check for shared folders, or listen the network in a passive way.
+\item What tools will they use to discover your asset?
+
+When attackers obtain access to one of your system, usually, they do not stop there. They will try to expand their control over other systems. For example, they could use network scanners, check for shared folders, or listen to the network in a passive way.
 \item What assets will they be interested in?
+
 If you have important confidential data (e.g. intellectual property) in your organization an attacker may want to steal them. You should place the honeypot near these assets to detected the attack before it happens. 
 \end{itemize}
 
@@ -174,9 +176,9 @@ To increase discoverability, you might also place \textbf{breadcrumbs} in system
 
 \section{Interactivity}
 
-Technically a single attacker interaction is enough to produce an alert. But is better if the honeypot responds back to the attacker for two main reasons:
+Technically a single attacker interaction is enough to produce an alert. But it is better if the honeypot responds back to the attacker for two main reasons:
 \begin{itemize}
-\item Each interaction that the attacker does with the honeypot could provide you important information. For example, if they stole some credentials, you may be able to know the account that was compromised. You may be able to find out what tool they use to enter  your network
+\item Each interaction that the attacker does with the honeypot could provide you important information. For example, if they stole some credentials, you may be able to know the account that was compromised. You may also be able to find out what tools they used to enter  your network
 \item Make the attacker waste time. Every second that the attacker spends interacting with the honeypot is a second you can invest into finding out which systems were compromised and isolate the attacker
 \end{itemize}
 
@@ -188,15 +190,15 @@ Finally, honeypots have to be monitored. This means that every notable interacti
 
 To manage all the events generated in an environment with multiple honeypots, you have to build a \textbf{logging and monitoring infrastructure} that stores the logs and alerts the analyst of the presence of an attack. The process of shipping logs from the honeypot to the monitoring server usually happens in four phases:
 \begin{enumerate}
-\item \textbf{Source}: the data are generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
-\item \textbf{Egress}: the data are transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed. 
-NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker can intercept the logs, it can know that a system is a honeypot without never interacting with it.
+\item \textbf{Source}: the data is generated from the honeypot. Note that each honeypot produces logs in its own format. You need to be aware of such format because often it is not compatible with the Logging and Monitoring Server.
+\item \textbf{Egress}: the data is transmitted to a central location. There has to be a sender capable of reading the logs and sending them to another location. In this phase, you also can do some filtering  if some of the information provided in the logs are not needed. 
+NB: Since you are transferring data over the network you have to consider all the CIA properties because the logs are sensitive data. If you do not encrypt data, you are vulnerable to various attacks like ARP cache poisoning and MITM. If the attacker intercept the logs, it will know that a system is a honeypot without ever interacting with it.
 
-\item	\textbf{Ingress}: the data are received. There should be a component that receives logs and parses them in a format compatible with the destination. In this phase, it is also important to do additional filtering because  some honeypots are very noisy. You may want to filter out interactions that are not important or interaction from components of the network that may interact with the honeypot (e.g., scanners)
-\item \textbf{Destination}: The data are stored in the destination inside a database.  You also can implement a dashboard to see them. This component must be protected because like already said these logs are sensitive data. You may also want a system to backup important logs.
+\item	\textbf{Ingress}: the data is received. There should be a component that receives logs and parses them in a format compatible with the destination. In this phase, it is also important to do additional filtering because  some honeypots are very noisy. You may want to filter out interactions that are not important or interaction from components of the network that may interact with the honeypot (e.g., scanners)
+\item \textbf{Destination}: The data is stored in the destination inside a database.  You can also implement a dashboard to see them. This component must be protected because like already said these logs are sensitive data. You may also want a system to backup important logs.
 \end{enumerate}
 
-Another mechanism that you can implement in parallel to the logging infrastructure is a monitoring infrastructure. You do not want to miss an attack because a honeypot was down because of a crash. This infrastructure allows you to keep track of the status of each honeypot and alert you when a honeypot goes down.
+Another mechanism that you can implement in parallel to the logging infrastructure is a monitoring infrastructure. You do not want to miss an attack because a honeypot was down because of a crash. This infrastructure allows you to keep track of the status of each honeypot and alerts you when a honeypot goes down.
 
 \chapter{Honeypots classification}
 
@@ -207,7 +209,7 @@ Honeypots can be classified on the basis of different characteristics. The two m
 Honeypots are classified by their degree of interaction with the communication destination (attacker) as a low interaction, medium interaction or  high interaction type. However, this does not mean that one type is better than the others. These terms are used in different ways depending on implementation, usage and purpose.
 
 \begin{itemize}
-\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot. 
+\item \textit{Low interaction}: low interaction honeypots capture the information about the predetermined activities of attackers, and limit these activities by using an emulation software. They exclusively utilize emulation software and its services, hence the quality of these honeypots is decided by the quality of emulation software. They are easier to maintain and deploy and are also more secure compared to high interaction honeypots because the attacker’s action is limited in the emulated area of the computer. Nonetheless, because it does not imitate the actual OS or application completely, the attacker may recognize this machine as a honeypot. 
 
 \item \textit{High interaction}: high interaction honeypots allow the attackers to interact with real systems and do not assume anything about the possible behavior of the attacker. They help the administrator to investigate the complete activities of the attackers, utilizing the operating systems (e.g. Linux) and applications (e.g. FTP) without using the emulation software (e.g. Dionaea) to record the activities of attackers. In most cases, attackers are unable to recognize the honeypot because it behaves similarly to the actual target host. However, these systems require more resources and are difficult to set up and maintain; also the possibility of infection from the malware or hacking by the attacker is higher than for the low interaction type honeypot. Therefore, the system should be monitored properly, and it is necessary to be prepared to restore the system to the state before the infection of malware.
 
@@ -251,10 +253,10 @@ It can run in two modes:
 	\item The ability to create a fake file system with files that attacker can cat
 	\item A mechanism to save files downloaded inside the shell with wget, curl or uploaded with SFTP and scp
 	\end{itemize}
-\item In High interaction mode (proxy) it functions as an SSH and telnet proxy to observe attacker behaviour to another system. To use this mode you have to provide a real secure backend environment where the attacker can execute any Unix command.
+\item In High interaction mode (proxy) it functions as an SSH and telnet proxy to observe attacker behaviour into another system. To use this mode you have to provide a real secure backend environment where the attacker can execute any Unix command.
 \end{itemize}
 
-\noindent In this lab, we will just focus on the Medium interaction mode because it is the most popular mode and can be easily deployed inside a virtual machine.
+\noindent In this lab, we will just focus on the Medium interaction mode because it is the most popular mode and it can be easily deployed inside a virtual machine.
 
 
 \section{Start-up Cowrie}
@@ -276,12 +278,12 @@ Enter in the attacker machine by typing in another terminal:
 \begin{lstlisting}[language=bash]
 $ ./startup/attacker.sh
 \end{lstlisting}
-As the attacker, you successfully installed nmap on the compromised machine and identified a host with the IP 10.0.0.10 (Cowrie IP address). Try to execute a probe scan to see what services run on that host. You can do it with the command:
+As the attacker, you successfully installed nmap on the compromised machine and identified a host with the IP 10.0.0.10 (Cowrie IP address). Try to execute a probe scan to see what services runs on that host. You can do it with the command:
 \begin{lstlisting}[language=bash]
 $ nmap -sV 10.0.0.10
 \end{lstlisting}
 You should see that with the Cowrie default configuration the (fake) SSH service run on port 2222.
-Now you should try to connect using common credential for example username: \textit{root} and password: \textit{password}. To do that type the command:
+Now you should try to connect using common credentials. For example username: \textit{root} and password: \textit{password}. To do that type the command:
 \begin{lstlisting}[language=bash]
 $ ssh root@10.0.0.10 -p2222
 \end{lstlisting}
@@ -291,11 +293,11 @@ Things to keep in mind:
 \itemsep0em 
 \item With the default configuration there is a time-out that will log you out every two minutes
 \item While inside the honeypot don't worry about breaking things.
-\item If you get stuck for some reason type in the cowrie terminal: \$ cowrie stop and then start it again.
+\item If you get stuck for some reason type in the Cowrie terminal: \$ cowrie stop and then start it again.
 \end{enumerate}
 
 \section{Brief exercise - Solution}
-Here a list of behaviour you may have encountered:
+Here a list of behaviours you may have encountered:
 \begin{itemize}
 \itemsep0em 
 \item If you type the command:
@@ -307,14 +309,14 @@ $ uname -v
 $ apt-get install ftp 
 	\end{lstlisting}
 	But after the installation screen every time you try to execute the newly installed command you will get the error \texttt{SEGMENTATION FAULT}.
-\item When you try to \texttt{cat} some files they seem to exist but you will get the error "\textit{No such file or directory}"
+\item When you try to \texttt{cat} some files they seem to exist but you will get the error "\texttt{No such file or directory}"
 \item You cannot kill processes
-\item You can  downloads  files with wget but when you check their size with the command ls -al you see them as 0 Byte files
+\item You can  download  files with \texttt{wget} but when you check their size with the command \texttt{ls -al} you see them as 0 Byte files
 \item If you delete all the files in the root folder nothing breaks. And if you re-login into the honeypot all the files will return.
 \end{itemize}
 
 \section{A consideration about the previous exercise}
-Some may think that is not that hard to figure out that the system is a honeypot, but you have to keep in mind that when the attacker is inside the honeypot we already logged every character he typed.
+Some may think that it is not that hard to figure out that the system is a honeypot, but you have to keep in mind that when the attacker is inside the honeypot we already logged every character he typed. So  for him, it is already too late.
 You can actually replay each session of interaction with the command:
 \begin{lstlisting}[language=bash]
 $ bin/playlog var/lib/cowrie/tty/[session_log_ID]
@@ -326,7 +328,7 @@ $ ls var/lib/cowrie/downloads/
 \end{lstlisting}
 
 \section{Customizing Cowrie}
-The honeypot with the default configuration is almost empty, but the goal is to make the attacker believe that it is a legitimate system. In this way, you can increase its interaction with the system and gather intel about what is seeking or what tool it uses. To make Cowrie resemble a legitimate system you have to start by modifying the cowrie config files.
+The honeypot with the default configuration is almost empty, but the goal is to make the attacker believe that it is a legitimate system. In this way, you can increase its interaction with the system and gather intel about what is seeking or what tools it uses. To make Cowrie resemble a legitimate system you have to start by modifying the Cowrie configuration files.
 
 The first thing to do is to copy the default configuration file \texttt{cowrie.cfg.dist} in a file named \texttt{cowrie.cfg}, Cowrie will give priority to this file if it exist:
 \begin{lstlisting}[language=bash]
@@ -335,8 +337,8 @@ $ cp cowrie.cfg.dist cowrie.cfg
 \end{lstlisting}
 Now you can access the file with a text editor (e.g. vim or nano) and edit the following sections:
 \begin{itemize}
-\item Scroll down a bit and change the \texttt{hostname}. You might want to mimic similar server name existing in the network range of the honeypot. Or you can also stand out with something original.
-\item Search for timeout to change the interaction and authentication timeouts to a new value
+\item Scroll down a bit and change the \texttt{hostname}. You might want to mimic similar server names already existing in the network range of the honeypot. Or you can also stand out with something original.
+\item Search for \texttt{timeout} to change the interaction and authentication timeouts to a new value
 \item Search for \texttt{listen\_endpoints} in the \texttt{[shell]} section (second match of the search) and modify the port from 2222 to 22
 \end{itemize}
 
@@ -348,7 +350,7 @@ $ cowrie restart
 
 \subsection{Modifying the login credentials}
 \label{sub:login}
-Another fundamental part to customize are the credentials that the attacker can use to SSH into the honeypot. To achieve this copy the file \texttt{userdb.example} to \texttt{userdb.txt}:
+Another fundamental part to customize is the credentials that the attacker can use to SSH into the honeypot. To achieve this, copy the file \texttt{userdb.example} to \texttt{userdb.txt}:
 \begin{lstlisting}[language=bash]
 $ cd etc
 $ cp userdb.example userdb.txt
@@ -358,11 +360,11 @@ Try to use generic credentials that can be easily guessed but without raising su
 
 
 \subsection{Modifying the process list}
-Cowrie allows you to create a list of fake processes that will be printed with the command \texttt{ps}. To do that modify the JSON file at the following path: \texttt{share/cowrie/cmdoutput.json}. The syntax is self-explanatory. When you edit it try to remove processes that are not likely to appear in your system and add processes that are running on a real systems
+Cowrie allows you to create a list of fake processes that will be printed with the command \texttt{ps}. To do that modify the JSON file at the following path: \texttt{share/cowrie/cmdoutput.json}. The syntax is self-explanatory. When you edit it, try to remove processes that are not likely to appear in your system and add processes that are running on a real systems.
 
 
 \subsection{Modifying the file system}
-Cowrie provides an emulated file system so when an attacker login it will get its own personal copy of this filesystem that will be deleted when they log off. This file system is implemented into two components:
+Cowrie provides an emulated file system so when an attacker logins, it will get its own personal copy of this filesystem that will be deleted when they log off. This file system is implemented into two components:
 \begin{itemize}
 \itemsep0em 
 \item \textbf{pickle file}: contains metadata for the files (their name, size, permission, directory, …)
@@ -371,7 +373,7 @@ Cowrie provides an emulated file system so when an attacker login it will get it
 
 \noindent NB: to be visible (\texttt{ls}) a file must be in the pickle file, and to be also accessible (\texttt{cat}) it needs to be in the honeyfs directory.
 
-You can find the \texttt{honeyfs} directory in the cowrie installation folder. An interesting file you can modify is \texttt{motd} that contains the SSH post login banner.
+You can find the \texttt{honeyfs} directory in the Cowrie installation folder. An interesting file you can modify is \texttt{motd} that contains the SSH post login banner.
 \begin{lstlisting}[language=bash]
 $ cd honeyfs
 $ vim etc/motd
@@ -559,7 +561,7 @@ Then you have to think about what the attacker will see, so:
 \noindent NB: Do not exaggerate by placing too many honeyfiles, because it will also increase the chance of triggering false positives by legitimate users. And also do not try too hard with the naming conventions otherwise the attacker will become suspicious.
 
 \section{Honeydoc}
-A honeydoc is a  particular type of honeyfile. In particular, is an office document that contains a token used for tracking purpose (called web bug or web beacon). This token  references a resource from an external URL. In this way when the document is opened, the external resource will be requested and the server serving this resource will log the interaction. In the next exercise we will hide this web bug by shrinking it into a 1x1  pixel image.
+A honeydoc is a  particular type of honeyfile. In particular, it is an office document that contains a token used for tracking purpose (called web bug or web beacon). This token  references a resource from an external URL. In this way when the document is opened, the external resource will be requested and the server serving this resource will log the interaction. In the next exercise we will hide this web bug by shrinking it into a 1x1  pixel image.
 
 \section{Create a LibreOffice honeydoc}
 
@@ -573,13 +575,13 @@ $ tail -f /var/log/nginx/access.log
 Now you can create the honeydoc. First, open LibreOffice and create a new document. Then follow these steps:
 \begin{enumerate}
 \itemsep0em
-\item Create a footer by clicking at the bottom of the page. By placing the web bug there is harder that is accidentally found or  deleted
+\item Create a footer by clicking at the bottom of the page. By placing the web bug there, is harder to be accidentally found or  deleted
 \item Click on the Insert tab. Then insert an image. Now select just a temporary image  and then select the box "Insert as a link".
 \item LibreOffice will ask if you really want to include a link. You have to choose "Keep link"
 \item Now right-click on the image. And click on properties.
 \item In the first tab resize the image as small as possible (0.2")
 \item In the "option" tab check the protect content, position and size boxes.
-\item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To be still visible we choose a black image but by using a white or transparent image it will be very difficult to detect.
+\item In the "image" tab modify the field "File Name" to reference the remote image present on the Nginx server and click OK. After these steps, the image should be hard to spot. To still be able to see it we choose a black image but by using a white or transparent image it will be very difficult to detect.
 \item Add some content to the document and save it with a relevant name (e.g. PASSWORDS.txt) 
 \end{enumerate}
 
@@ -614,7 +616,7 @@ To do that, open Firefox and go to the URL \texttt{http://localhost:5601} and lo
 
 After logging in, open the menu on the left side of the screen and click on Recently viewed -> raw logs. On this page, you should be able to see all the logs received and stored in the elastic search database. You can use the search bar to filter for specific values and modify the time frame of the logs that are shown by specifying a time interval in the input on the right of the search bar.
 
-To create a dashboard click on the menu on the left side of the screen and click on New Dashboard. Now click on the button "Create panel" and select the panel Lens. Now select a relevant field you are interested in and drag it into the center of the screen. For example you can choose the field \texttt{Fields.document\_type.keyword} that tell from  what honeypot the log was generated. Then select a visualization type (e.g. donut) and click on the button "Save and return" to save the visualization. Once you are done you can save the dashboard by clicking on "Save" in the right top corner of the screen.
+To create a dashboard click on the menu on the left side of the screen and click on New Dashboard. Now click on the button "Create panel" and select the panel Lens. Now select a relevant field you are interested in and drag it into the center of the screen. For example you can choose the field \texttt{Fields.document\_type.keyword} that tell from  what honeypot the log was generated. Then select a visualization type (e.g. donut) and click on the button "Save and return" to save the visualization. Once you are done, you can save the dashboard by clicking on "Save" in the right top corner of the screen.
 
 \begin{center}
 \includegraphics[scale=0.35]{kibana}
